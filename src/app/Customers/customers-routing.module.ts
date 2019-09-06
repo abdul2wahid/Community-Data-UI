@@ -2,17 +2,28 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ViewCustomerComponent } from './view-customer/view-customer.component'
-
+import { DetailcustomerComponent } from './detailcustomer/detailcustomer.component';
 
 const routes: Routes = [
+
+ 
   {
     path: '',
-    component: ViewCustomerComponent
-  },
+    children: [
+      {
+        path: '',
+        component: ViewCustomerComponent,
+      },
+      {
+        path: 'details',
+      component: DetailcustomerComponent,
+      }
+    ]
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)]
+   
 })
 export class CustomersRoutingModule { }

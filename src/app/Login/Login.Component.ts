@@ -18,10 +18,10 @@ export class LoginComponent implements OnInit {
   loading = false;
   unauthorized = false;
   submitted = false;
-  returnUrl: string;
+  returnUrl: "/customers";
   result: string;
   
-  public baseURL = "http://localhost:49438/api/";
+  public baseURL = "http://localhost:80/api/";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         else {
          
           sessionStorage.setItem('Token', String(data));
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['/customers']);
         }
       },
       errorCode => {

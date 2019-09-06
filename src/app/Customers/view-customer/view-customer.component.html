@@ -14,6 +14,7 @@
               <th>Name</th>
               <th>Age</th>
               <th>Gender</th>
+              <th>Details</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-BasicCustomers>
@@ -22,6 +23,7 @@
               <td>{{BasicCustomers.cutomerName}}</td>
               <td>{{BasicCustomers.age}}</td>
               <td>{{BasicCustomers.gender}}</td>
+              <td> <input type="button" value="Details" (click)="clickEvent(BasicCustomers)"   class="ui-button-info">  </td>
             </tr>
           </ng-template>
         </p-table>

@@ -1,24 +1,22 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { CustomersService } from '../Customers.service'
 
 @Component({
   selector: 'app-view-customer',
   templateUrl: './view-customer.component.html',
-  //styleUrls: ['./view-customer.component.css'],
-  "styles": [
-    "../node_modules/primeng/resources/themes/nova-light/theme.css",
-    "../node_modules/primeng/resources/primeng.min.css",
-    "../node_modules/primeicons/primeicons.css",
-    //...
-  ],
+  styleUrls: ['./view-customer.component.css'],
  
 })
 export class ViewCustomerComponent implements OnInit {
 
   BasicCustomersList: BasicCustomersModel[]
-  public baseURL = "http://localhost:49438/api/";
-  constructor(private custService: CustomersService) { }
+  public baseURL = "http://localhost:80/api/";
+  constructor(private custService: CustomersService,
+    private router: Router,
+    private route: ActivatedRoute, )
+  { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -27,6 +25,10 @@ export class ViewCustomerComponent implements OnInit {
           this.BasicCustomersList = data;
         })}, 1000);
     
+  }
+
+  clickEvent(row: BasicCustomersModel) {
+    this.router.navigate(['./details'], { relativeTo: this.route });
   }
 
 }
