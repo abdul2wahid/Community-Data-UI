@@ -10,12 +10,15 @@ import { Observable} from 'rxjs'
 export class TokenInterceptor implements HttpInterceptor {
   constructor( ){}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    request = request.clone({
-      setHeaders: {
-        Token: sessionStorage.getItem('Token')
-      }
-    });
+
+    if (sessionStorage.getItem('Token')!=null)
+    {
+      request = request.clone({
+        setHeaders: {
+          Token: sessionStorage.getItem('Token')
+        }
+      });
+    }
     return next.handle(request);
   }
 }

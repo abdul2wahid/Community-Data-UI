@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
-import { HttpClientModule } from '@angular/common/http';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -18,7 +18,7 @@ import { TokenInterceptor } from '../token.interceptor';
     LoginComponent,
   ],
   imports: [
-    CommonModule, LoginRoutingModule, HttpClientModule, ReactiveFormsModule
+    CommonModule, LoginRoutingModule, ReactiveFormsModule
   ],
   providers: [
     LoginService, FormBuilder, DatePipe,

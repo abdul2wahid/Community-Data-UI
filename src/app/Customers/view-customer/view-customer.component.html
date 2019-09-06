@@ -1,0 +1,34 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-2">
+
+    </div>
+    <div class="col-xs-8">
+      <div   >
+
+        <p-table [value]="BasicCustomersList" [style]="{border:'1px solid black;'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Customer ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-BasicCustomers>
+            <tr>
+              <td>{{BasicCustomers.customerID}}</td>
+              <td>{{BasicCustomers.cutomerName}}</td>
+              <td>{{BasicCustomers.age}}</td>
+              <td>{{BasicCustomers.gender}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="col-xs-2">
+
+    </div>
+  </div>
+  </div>
