@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AppSettings } from '../app.settings';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +23,8 @@ export class LoginService{
   };
   }
 
-  public Login(baseUrl: string, credentials: any) {
-    return this._http.post<string>(baseUrl, credentials, this.httpOptions)
+  public Login(url: string, credentials: any) {
+    return this._http.post<string>(AppSettings.API_ENDPOINT + url, credentials, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );

@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { BasicCustomerModel } from './Models/BasicCustomerModel';
-import { DetailCustomerModel } from './Models/DetailCustomerModel';
-import { AppSettings } from '../app.settings';
+import { GenderModel } from './AppModel/GenderModel';
+import { AppSettings } from './app.settings';
+import { MarriageModel } from './AppModel/MarriageModel';
+import { OccupationModel } from './AppModel/OccupationModel';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomersService {
+export class AppService {
 
   public httpOptions: any;
   public result: any;
@@ -22,41 +24,56 @@ export class CustomersService {
         'Content-Type': 'application/json'
       }),
     };
-    
+
   }
 
-  public getCustomers(url: string, sortOrder: string, currentPageNo: string, filterString : string, ) {
 
-    let params = new HttpParams().set('sortOrder', sortOrder).append('currentPageNo', currentPageNo)
-    .append('filterString', filterString);
+  public getGender( ) {
+
+    
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = {  headers: headers };
+
+
+    return this._http.get<GenderModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetGender", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  public getMarriage() {
+
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
-    const options = { params: params, headers: headers };
+    const options = { headers: headers };
 
 
-    return this._http.get<BasicCustomerModel[]>(AppSettings.API_ENDPOINT+ url, options)
+    return this._http.get<MarriageModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetMaritalstatus", options)
       .pipe(
         catchError(this.handleError)
       );
   };
 
 
-  public getCustomer(url: string, id: string ) {
+  public getOccupation() {
 
-    let params = new HttpParams().set('id', id);
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
-    const options = { params: params, headers: headers };
+    const options = { headers: headers };
 
-    return this._http.get<DetailCustomerModel[]>(AppSettings.API_ENDPOINT + url, options)
+
+    return this._http.get<OccupationModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetOccupation", options)
       .pipe(
         catchError(this.handleError)
       );
   };
+
 
 
   private handleError(error: HttpErrorResponse) {
@@ -75,16 +92,4 @@ export class CustomersService {
       error);
   };
 
-
-  //Get Customer Model
-  public getCustomerModel(baseUrl: string) {
-    return this._http.get(baseUrl);
-  };
-
-  //Add Customer API call.
-  public addCustomer(baseUrl: string, customer: any) {
-    return this._http.post(baseUrl, customer, this.httpOptions);
-  }
 }
-
-

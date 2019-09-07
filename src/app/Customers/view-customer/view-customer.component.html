@@ -5,7 +5,7 @@
 
     </div>
     <div class="col-xs-8">
-      <div   >
+     
 
         <p-table [value]="BasicCustomersList" [style]="{border:'1px solid black;'}">
           <ng-template pTemplate="header">
@@ -23,11 +23,14 @@
               <td>{{BasicCustomers.cutomerName}}</td>
               <td>{{BasicCustomers.age}}</td>
               <td>{{BasicCustomers.gender}}</td>
-              <td> <input type="button" value="Details" (click)="clickEvent(BasicCustomers)"   class="ui-button-info">  </td>
+              <td> <p-button  (onClick)="clickEvent(BasicCustomers)" icon="pi pi-user-edit" class="ui-button-icon">
+                 </p-button>
+              
+              </td>
             </tr>
           </ng-template>
         </p-table>
-      </div>
+      
     </div>
     <div class="col-xs-2">
 

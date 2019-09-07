@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   returnUrl: "/customers";
   result: string;
   
-  public baseURL = "http://localhost:80/api/";
+ 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     };
 
     this.loading = true;
-    this.authenticationService.Login(this.baseURL + "User/Login", credentials)
+    this.authenticationService.Login( "User/Login", credentials)
       .pipe(first())
       .subscribe(
       data => {

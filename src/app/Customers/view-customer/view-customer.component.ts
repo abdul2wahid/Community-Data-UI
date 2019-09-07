@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { CustomersService } from '../Customers.service'
+import { BasicCustomerModel } from '../Models/BasicCustomerModel';
 
 @Component({
   selector: 'app-view-customer',
@@ -11,8 +12,8 @@ import { CustomersService } from '../Customers.service'
 })
 export class ViewCustomerComponent implements OnInit {
 
-  BasicCustomersList: BasicCustomersModel[]
-  public baseURL = "http://localhost:80/api/";
+  BasicCustomersList: BasicCustomerModel[]
+ 
   constructor(private custService: CustomersService,
     private router: Router,
     private route: ActivatedRoute, )
@@ -20,26 +21,17 @@ export class ViewCustomerComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.custService.getCustomers(this.baseURL + "Customer", "1", "1", "").subscribe(
+      this.custService.getCustomers("Customer", "1", "1", "").subscribe(
         data => {
           this.BasicCustomersList = data;
-        })}, 1000);
+        })}, 200);
     
   }
 
-  clickEvent(row: BasicCustomersModel) {
-    this.router.navigate(['./details'], { relativeTo: this.route });
+  clickEvent(row: BasicCustomerModel) {
+    this.router.navigate(['./details',row.customerID], { relativeTo: this.route ,});
   }
 
 }
 
 
-export interface BasicCustomersModel {
-  customerID;
-  cutomerName;
-  age;
-  gender;
-  maritalStatus;
-  occupation;
-  mobileNumber;
-}
