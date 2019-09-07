@@ -10,12 +10,15 @@
         <div class="panel-heading">{{item.cutomerName}}</div>
 
         <div class="panel-body">
+
+          <!--Basic info panel-->
+
           <div class="panel panel-default">
             <div class="panel-heading">Basic Info</div>
             <div class="panel-body row">
               <div class="col-xs-2">
-                
-               
+
+
               </div>
               <div class="col-xs-8">
 
@@ -48,7 +51,7 @@
                       <label>Gender</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select >
+                      <select>
                         <option *ngFor="let c of genderList" [value]="c" [selected]="item.gender === c.gender1">{{c.gender1}}</option>
                       </select>
 
@@ -61,31 +64,31 @@
                       <label>Marrige Status</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select >
-                        <option *ngFor="let c of marriageList" [value]="c"  [selected]="item.maritalStatus === c.maritalStatus1">{{c.maritalStatus1}}</option>
+                      <select>
+                        <option *ngFor="let c of marriageList" [value]="c" [selected]="item.maritalStatus === c.maritalStatus1">{{c.maritalStatus1}}</option>
                       </select>
 
                     </td>
                   </tr>
-
+                  <br />
                   <tr>
                     <td class="cellWidthForLabel">
                       <label>Occupation </label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select >
-                        <option *ngFor="let c of occupationList" [value]="c"  [selected]="item.occupation === c.occuptionName" >{{c.occuptionName}}</option>
+                      <select>
+                        <option *ngFor="let c of occupationList" [value]="c" [selected]="item.occupation === c.occuptionName">{{c.occuptionName}}</option>
                       </select>
 
                     </td>
                   </tr>
-
+                  <br />
                   <tr>
                     <td class="cellWidthForLabel">
                       <label>Mobile Number</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text"  [value]="item.mobileNumber" />
+                      <input type="text" [value]="item.mobileNumber" />
 
                     </td>
                   </tr>
@@ -98,14 +101,103 @@
               </div>
             </div>
           </div>
-          <label>Age</label>
-          <input type="text" disabled [value]="item.age" />
+
+          <!--address panel-->
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Address Info</div>
+            <div class="panel-body row">
+              <div class="col-xs-2">
+
+
+              </div>
+
+              <div class="col-xs-8">
+                <table>
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>Address </label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <input type="text" [value]="item.address1" />
+                    </td>
+                  </tr>
+                  <br />
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>Street/Landmark Details</label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <input type="text" [value]="item.address2" />
+                    </td>
+                  </tr>
+                  <br />
+
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>Area</label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <input type="text" [value]="item.area" />
+                    </td>
+                  </tr>
+                  <br />
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>City</label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <select>
+                        <option *ngFor="let c of cityList" [value]="c" [selected]="item.city === c.city1">{{c.city1}}</option>
+                      </select>
+
+                    </td>
+                  </tr>
+                  <br />
+
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>State</label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <select>
+                        <option *ngFor="let c of statesList" [value]="c" [selected]="item.state === c.state">{{c.state}}</option>
+                      </select>
+
+                    </td>
+                  </tr>
+                  <br />
+
+                  <tr>
+                    <td class="cellWidthForLabel">
+                      <label>Pin</label>
+                    </td>
+                    <td class="cellWidthForInput">
+                      <select>
+                        <option *ngFor="let c of pinList" [value]="c" [selected]="item.pin === c.pin">{{c.pin}}</option>
+                      </select>
+
+                    </td>
+                  </tr>
+                  <br />
+                </table>
+</div>
+              <div class="col-xs-2">
+
+
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
-
-        </div>
-
-  
+    </div>
     <div class="col-xs-2"></div>
   </div>
 

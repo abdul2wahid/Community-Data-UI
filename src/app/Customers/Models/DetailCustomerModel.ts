@@ -20,6 +20,10 @@ export interface DetailCustomerModel {
   cityId;
   pinId;
   stateId;
+  city;
+  pin;
+  state;
+
 
   createdBy;
   createdOn;

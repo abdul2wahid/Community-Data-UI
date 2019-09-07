@@ -75,6 +75,21 @@ export class CustomersService {
       error);
   };
 
+  public deleteCustomer(url: string, id: string ) {
+
+    let params = new HttpParams().set('id', id);
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = {  headers: headers };
+
+
+    return this._http.delete<boolean>(AppSettings.API_ENDPOINT + url +id, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
 
   //Get Customer Model
   public getCustomerModel(baseUrl: string) {

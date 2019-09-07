@@ -6,6 +6,9 @@ import { GenderModel } from './AppModel/GenderModel';
 import { AppSettings } from './app.settings';
 import { MarriageModel } from './AppModel/MarriageModel';
 import { OccupationModel } from './AppModel/OccupationModel';
+import { CityModel } from './AppModel/CityModel';
+import { StatesModel } from './AppModel/StatesModel';
+import { PinCodeModel } from './AppModel/PinCodeModel';
 
 
 
@@ -75,6 +78,50 @@ export class AppService {
   };
 
 
+  public GetCities() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<CityModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetCities", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  public GetStates() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<StatesModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetStates", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  public getPinCodes() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<PinCodeModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetPincodes", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

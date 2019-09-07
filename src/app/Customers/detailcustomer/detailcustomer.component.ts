@@ -8,6 +8,9 @@ import { GenderModel } from 'src/app/AppModel/GenderModel';
 import { OccupationModel } from '../../AppModel/OccupationModel';
 import { MarriageModel } from '../../AppModel/MarriageModel';
 import { DropdownModule } from 'primeng/dropdown';
+import { CityModel } from 'src/app/AppModel/CityModel';
+import { StatesModel } from 'src/app/AppModel/StatesModel';
+import { PinCodeModel } from 'src/app/AppModel/PinCodeModel';
 
 @Component({
   selector: 'app-detailcustomer',
@@ -25,6 +28,10 @@ export class DetailcustomerComponent implements OnInit {
 
   occupationList: OccupationModel[];
   selectedOccupation: OccupationModel;
+
+  cityList: CityModel[];
+  statesList: StatesModel[];
+  pinList: PinCodeModel[];
 
   constructor(private custService: CustomersService,
     private appService: AppService,
@@ -49,6 +56,22 @@ export class DetailcustomerComponent implements OnInit {
     this.appService.getOccupation().subscribe(
       data => {
         this.occupationList = data;
+      });
+
+
+    this.appService.GetCities().subscribe(
+      data => {
+        this.cityList = data;
+      });
+
+    this.appService.GetStates().subscribe(
+      data => {
+        this.statesList = data;
+      });
+
+    this.appService.getPinCodes().subscribe(
+      data => {
+        this.pinList = data;
       });
 
 

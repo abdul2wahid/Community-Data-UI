@@ -8,30 +8,61 @@ import { BasicCustomerModel } from '../Models/BasicCustomerModel';
   selector: 'app-view-customer',
   templateUrl: './view-customer.component.html',
   styleUrls: ['./view-customer.component.css'],
- 
+
 })
 export class ViewCustomerComponent implements OnInit {
 
   BasicCustomersList: BasicCustomerModel[]
- 
+
   constructor(private custService: CustomersService,
     private router: Router,
-    private route: ActivatedRoute, )
-  { }
+    private route: ActivatedRoute, ) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.custService.getCustomers("Customer", "1", "1", "").subscribe(
         data => {
           this.BasicCustomersList = data;
-        })}, 200);
-    
+        })
+    }, 200);
+
   }
 
-  clickEvent(row: BasicCustomerModel) {
-    this.router.navigate(['./details',row.customerID], { relativeTo: this.route ,});
+  detailsEvent(row: BasicCustomerModel) {
+    this.router.navigate(['./details', row.customerID], { relativeTo: this.route, });
+  }
+
+  custID: string;
+  deleteEvent(row: BasicCustomerModel) {
+    this.custID = row.customerID;
+    document.getElementById('myModal').style.display = "block";
+    //document.getElementById('viewContainer').style.display = "none";
+    debugger;
+  }
+
+  confirm() {
+    if (this.custID != "") {
+      this.custService.deleteCustomer("Customer/", this.custID).subscribe(
+        data => {
+          if (data) {
+            document.getElementById('myText').innerText = "Deleted succesfully";
+            document.getElementById('myButton').style.display = "none";
+          }
+          else {
+            document.getElementById('myText').innerText = "Failed to Delete";
+            document.getElementById('myButton').style.display = "none";
+          }
+        })
+    }
+      else {
+      document.getElementById('myText').innerText = "Failed to Delete";
+      document.getElementById('myButton').style.display = "none";
+      }
+  }
+
+    close() {
+      this.custID = "";
+    document.getElementById('myModal').style.display = "none";
   }
 
 }
-
-
