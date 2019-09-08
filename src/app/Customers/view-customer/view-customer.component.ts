@@ -29,15 +29,16 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   detailsEvent(row: BasicCustomerModel) {
-    this.router.navigate(['./details', row.customerID], { relativeTo: this.route, });
+    this.router.navigate(['./edit', row.customerID], { relativeTo: this.route, });
   }
+
+
 
   custID: string;
   deleteEvent(row: BasicCustomerModel) {
     this.custID = row.customerID;
     document.getElementById('myModal').style.display = "block";
     //document.getElementById('viewContainer').style.display = "none";
-    debugger;
   }
 
   confirm() {

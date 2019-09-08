@@ -58,6 +58,22 @@ export class CustomersService {
       );
   };
 
+  
+
+  
+  public updateCustomer(url: string, cust: DetailCustomerModel[]) {
+
+    //let params = new HttpParams().set('cust', cust.toString());
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers: headers };
+
+
+  return this._http.put<boolean>(AppSettings.API_ENDPOINT + url, cust, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

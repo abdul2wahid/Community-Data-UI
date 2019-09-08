@@ -1,0 +1,164 @@
+import { Component, OnInit } from '@angular/core';
+import { CustomersService } from '../Customers.service'
+import { AppService } from '../../app.service'
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { DetailCustomerModel } from '../Models/DetailCustomerModel';
+import { GenderModel } from 'src/app/AppModel/GenderModel';
+import { OccupationModel } from '../../AppModel/OccupationModel';
+import { MarriageModel } from '../../AppModel/MarriageModel';
+import { DropdownModule } from 'primeng/dropdown';
+import { CityModel } from 'src/app/AppModel/CityModel';
+import { StatesModel } from 'src/app/AppModel/StatesModel';
+import { PinCodeModel } from 'src/app/AppModel/PinCodeModel';
+import { EducationModel } from 'src/app/AppModel/EducationModel';
+import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
+import { isNullOrUndefined } from 'util';
+
+@Component({
+  selector: 'app-detailcustomer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
+})
+export class EditCustomerComponent implements OnInit {
+
+  DetailCustomerModelList: DetailCustomerModel[];
+  genderList: GenderModel[];
+  selectedGender: GenderModel;
+
+  marriageList: MarriageModel[];
+  selectedMarriage: MarriageModel;
+
+  occupationList: OccupationModel[];
+  selectedOccupation: OccupationModel;
+
+  cityList: CityModel[];
+  statesList: StatesModel[];
+  pinList: PinCodeModel[];
+  educationList: EducationModel[];
+  arabicEducationList: ArabicEducationModel[];
+  
+
+
+  constructor(private custService: CustomersService,
+    private appService: AppService, private router: Router,
+    private route: ActivatedRoute) { }
+  
+  ngOnInit() {
+
+
+
+    this.appService.getGender().subscribe(
+      data => {
+        this.genderList = data;
+      });
+
+
+    this.appService.getMarriage().subscribe(
+      data => {
+        this.marriageList = data;
+      });
+
+
+    this.appService.getOccupation().subscribe(
+      data => {
+        this.occupationList = data;
+      });
+
+
+    this.appService.GetCities().subscribe(
+      data => {
+        this.cityList = data;
+      });
+
+    this.appService.GetStates().subscribe(
+      data => {
+        this.statesList = data;
+      });
+
+    this.appService.getPinCodes().subscribe(
+      data => {
+        this.pinList = data;
+      });
+
+
+    this.appService.GetEducation().subscribe(
+      data => {
+        this.educationList = data;
+      });
+
+    this.appService.GetArabicEducation().subscribe(
+      data => {
+        this.arabicEducationList = data;
+      });
+
+    setTimeout(() => {
+      this.custService.getCustomer("Customer/Detail", this.route.snapshot.paramMap.get('id')).subscribe(
+        data => {
+          this.DetailCustomerModelList = data;
+        })
+    }, 200);
+
+
+
+  }
+
+  updateEvent() {
+    this.UpdateListItems();
+    this.custService.updateCustomer("Customer/Update", this.DetailCustomerModelList).subscribe(
+      data => {
+        this.router.navigate(['./customers']);
+      })
+  };
+
+  UpdateListItems() {
+    for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].educationName ))
+        this.DetailCustomerModelList[i].educationId = 0;
+      else
+        this.DetailCustomerModelList[i].educationId = this.educationList.find(x => x.educationName == this.DetailCustomerModelList[i].educationName).educationId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].arabicEducationName ))
+        this.DetailCustomerModelList[i].arabicEducationID = 0;
+      else
+        this.DetailCustomerModelList[i].arabicEducationID = this.arabicEducationList.find(x => x.arabicEducationName == this.DetailCustomerModelList[i].arabicEducationName).arabicEducationId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].occupation ))
+        this.DetailCustomerModelList[i].occupationId = 0;
+      else
+        this.DetailCustomerModelList[i].occupationId = this.occupationList.find(x => x.occuptionName == this.DetailCustomerModelList[i].occupation).occupationId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].maritalStatus ))
+        this.DetailCustomerModelList[i].maritalStatusId = 0;
+      else
+        this.DetailCustomerModelList[i].maritalStatusId = this.marriageList.find(x => x.maritalStatus1 == this.DetailCustomerModelList[i].maritalStatus).maritalStatusId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].gender ))
+        this.DetailCustomerModelList[i].genderId = 0;
+      else
+        this.DetailCustomerModelList[i].genderId = this.genderList.find(x => x.gender1 == this.DetailCustomerModelList[i].gender).genderId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].city))
+        this.DetailCustomerModelList[i].cityId = 0;
+      else
+        this.DetailCustomerModelList[i].cityId = this.cityList.find(x => x.city == this.DetailCustomerModelList[i].city).cityId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].state))
+        this.DetailCustomerModelList[i].stateId = 0;
+      else
+        this.DetailCustomerModelList[i].stateId = this.statesList.find(x => x.state1 == this.DetailCustomerModelList[i].state).StateId;
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].pin))
+        this.DetailCustomerModelList[i].pinId = 0;
+      else
+        this.DetailCustomerModelList[i].pinId = this.pinList.find(x => x.pin == this.DetailCustomerModelList[i].pin).pinId;
+    }
+    
+  };
+
+
+  AddDependent(item: DetailCustomerModel) {
+    document.getElementById('Add&Search').style.display = 'block';
+  }
+}

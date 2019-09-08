@@ -9,6 +9,8 @@ import { OccupationModel } from './AppModel/OccupationModel';
 import { CityModel } from './AppModel/CityModel';
 import { StatesModel } from './AppModel/StatesModel';
 import { PinCodeModel } from './AppModel/PinCodeModel';
+import { ArabicEducationModel } from './AppModel/ArabicEducationModel';
+import { EducationModel } from './AppModel/EducationModel';
 
 
 
@@ -107,6 +109,38 @@ export class AppService {
         catchError(this.handleError)
       );
   };
+
+  public GetEducation() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<EducationModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetEducation", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+
+  public GetArabicEducation() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<ArabicEducationModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetArabicEducation", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
 
   public getPinCodes() {
 

@@ -9,9 +9,15 @@ export interface DetailCustomerModel {
   maritalStatus;
   maritalStatusId;
   occupation;
-  occupationDetails;
   occupationId;
   mobileNumber;
+
+  educationDetails;
+  occupationDetails;
+  arabicEducationID;
+  arabicEducationName;
+  educationName;
+  educationId;
 
 
   address1;
@@ -31,12 +37,10 @@ export interface DetailCustomerModel {
   updatedOn;
 
 
-  arabicEducatioID;
-  educationDetails;
-  educationId;
+
 
   wifeId;
-  childernId;
+  childrenId;
   dependantParentID;
   dependantToBeAddedAsChild;
   dependantToBeDeleted;

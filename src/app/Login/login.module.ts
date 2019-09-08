@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
-
+import { CalendarModule } from 'primeng/calendar';
 import { LoginRoutingModule } from './Login-routing.module';
 import { LoginComponent } from './Login.Component';
 import { LoginService } from './login.service';
@@ -18,7 +18,7 @@ import { TokenInterceptor } from '../token.interceptor';
     LoginComponent,
   ],
   imports: [
-    CommonModule, LoginRoutingModule, ReactiveFormsModule
+    CommonModule, LoginRoutingModule, ReactiveFormsModule, CalendarModule
   ],
   providers: [
     LoginService, FormBuilder, DatePipe,

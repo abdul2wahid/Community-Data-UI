@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
+import { CalendarModule } from 'primeng/calendar';
 import { LoginService } from './login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    this.unauthorized = false;
      //stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
       
         if (!data) {
           this.loading = false;
+          this.unauthorized = true;
          
         }
         else {
@@ -79,11 +80,8 @@ export class LoginComponent implements OnInit {
         }
       },
       errorCode => {
-
-        if (errorCode == 401) {
-          this.loading = false;
-          this.unauthorized = true;
-        }
+        this.unauthorized = true;
+        this.loading = false;
       }
       );
   }

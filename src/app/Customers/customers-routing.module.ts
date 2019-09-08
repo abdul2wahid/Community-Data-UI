@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ViewCustomerComponent } from './view-customer/view-customer.component'
-import { DetailcustomerComponent } from './detailcustomer/detailcustomer.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 const routes: Routes = [
 
@@ -15,8 +15,8 @@ const routes: Routes = [
         component: ViewCustomerComponent,
       },
       {
-        path: 'details/:id',
-      component: DetailcustomerComponent,
+        path: 'edit/:id',
+        component: EditCustomerComponent,
       }
     ]
   }
