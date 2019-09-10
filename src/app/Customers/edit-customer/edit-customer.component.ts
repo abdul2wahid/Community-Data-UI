@@ -14,6 +14,7 @@ import { PinCodeModel } from 'src/app/AppModel/PinCodeModel';
 import { EducationModel } from 'src/app/AppModel/EducationModel';
 import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
 import { isNullOrUndefined } from 'util';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detailcustomer',
@@ -38,11 +39,16 @@ export class EditCustomerComponent implements OnInit {
   educationList: EducationModel[];
   arabicEducationList: ArabicEducationModel[];
   
+  depUserName: string;
+  depDOB: string;
+  relChoice: string;
 
 
   constructor(private custService: CustomersService,
-    private appService: AppService, private router: Router,
-    private route: ActivatedRoute) { }
+    private appService: AppService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private datePipe:DatePipe) { }
   
   ngOnInit() {
 
@@ -142,12 +148,12 @@ export class EditCustomerComponent implements OnInit {
       if (isNullOrUndefined(this.DetailCustomerModelList[i].city))
         this.DetailCustomerModelList[i].cityId = 0;
       else
-        this.DetailCustomerModelList[i].cityId = this.cityList.find(x => x.city == this.DetailCustomerModelList[i].city).cityId;
+        this.DetailCustomerModelList[i].cityId = this.cityList.find(x => x.city1 == this.DetailCustomerModelList[i].city).cityId;
 
       if (isNullOrUndefined(this.DetailCustomerModelList[i].state))
         this.DetailCustomerModelList[i].stateId = 0;
       else
-        this.DetailCustomerModelList[i].stateId = this.statesList.find(x => x.state1 == this.DetailCustomerModelList[i].state).StateId;
+        this.DetailCustomerModelList[i].stateId = this.statesList.find(x => x.state == this.DetailCustomerModelList[i].state).StateId;
 
       if (isNullOrUndefined(this.DetailCustomerModelList[i].pin))
         this.DetailCustomerModelList[i].pinId = 0;
@@ -160,5 +166,64 @@ export class EditCustomerComponent implements OnInit {
 
   AddDependent(item: DetailCustomerModel) {
     document.getElementById('Add&Search').style.display = 'block';
+  }
+
+
+
+
+
+  DeleteDependent(item: DetailCustomerModel) {
+    this.DetailCustomerModelList.find(x => x.customerID == item.customerID).dependantToBeDeleted = true;
+  }
+
+
+  parentID: string;
+  FindAndAddDependent() {
+    document.getElementById('SearchResult').innerText = "";
+    if (isNullOrUndefined(this.depUserName) || isNullOrUndefined(this.depDOB) || isNullOrUndefined(this.relChoice)) {
+      document.getElementById('SearchResult').innerText = 'Incorrect Input, please select all values';
+      return;
+
+    }
+    else if (this.depUserName == "" || this.depDOB == "" || this.relChoice == "") {
+      document.getElementById('SearchResult').innerText = 'Incorrect Input, please select all values';
+      return;
+    }
+    else {
+      let duplicate = this.DetailCustomerModelList.find(x => x.cutomerName.toLocaleLowerCase() == this.depUserName.toLocaleLowerCase() &&
+        x.dob == this.datePipe.transform(this.depDOB, "dd-MM-yyyy"));
+      if (!isNullOrUndefined(duplicate)) {
+        document.getElementById('SearchResult').innerText = 'User already listed, duplicate user';
+        return;
+      }
+    }
+ 
+    this.custService.findCustomer("Customer/Find", this.depUserName, this.datePipe.transform(this.depDOB, "dd-MM-yyyy")).subscribe(
+      data => {
+        if (data >= 0) {
+          this.custService.getCustomer("Customer/Detail", data.toString()).subscribe(
+            x => {
+              if (x.length == 1) {
+                  
+                this.parentID = this.DetailCustomerModelList.find(x => x.wifeId == null && x.childrenId == null).customerID
+                x[0].dependantParentID = this.parentID;
+
+                if (this.relChoice == "Child")
+                  x[0].childrenId = x[0].customerID;
+                else
+                  x[0].wifeId = x[0].customerID;
+
+                this.DetailCustomerModelList.push(x[0]);
+                document.getElementById('SearchResult').innerText = 'User Found and listed below, Please click on save to add the newly listed dependent';
+              }
+              else {
+                document.getElementById('SearchResult').innerText = 'This user has dependents, cant add as dependent';
+              }
+            });
+        }
+        else {
+          document.getElementById('SearchResult').innerText = 'Either User Not Found or already added as dependent to other user';
+        }
+      });
   }
 }

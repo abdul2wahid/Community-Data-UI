@@ -2,29 +2,33 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-2">
-     
+
     </div>
     <div class="col-xs-8">
+
+      <!--Save button-->
       <div class="row">
         <div class="col-xs-10">
         </div>
         <div class="col-xs-2">
-          <input type="button"  class="btn btn-primary" value="Update" class="btn btn-primary" (click)="updateEvent()"  />
+          <input type="button" class="btn btn-primary" value="Save" class="btn btn-primary" (click)="updateEvent()" />
         </div>
       </div>
       <br />
 
+
+      <!--search and add window-->
       <div class="row panel panel-default" id="Add&Search" style="display:none">
 
         <div class="col-xs-12 panel-body">
-          
+
           <table>
             <tr>
               <td>
                 <label class="cellWidthForLabel">User Name</label>
-                </td>
+              </td>
               <td>
-                <input type="text" class="cellWidthForInput" />
+                <input type="text" class="cellWidthForInput" [(ngModel)]="depUserName" />
               </td>
             </tr>
             <br />
@@ -33,7 +37,7 @@
                 <label class="cellWidthForLabel">DOB</label>
               </td>
               <td>
-                <p-calendar class="cellWidthForInput" showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030"></p-calendar>
+                <p-calendar [(ngModel)]="depDOB" class="cellWidthForInput" showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030"></p-calendar>
               </td>
 
             </tr>
@@ -42,9 +46,9 @@
               <td>
                 <label class="cellWidthForLabel">RelationShip</label>
               </td>
-              <td >
-                <input type="radio" value="Child" name="realt" class="cellWidthForInput"/>Child
-                <input type="radio" value="Wife" name="realt" class="cellWidthForInput"/>Wife
+              <td>
+                <input [(ngModel)]="relChoice" type="radio" value="Child" name="realt" class="cellWidthForInput" />Child
+                <input [(ngModel)]="relChoice" type="radio" value="Wife" name="realt" class="cellWidthForInput" />Wife
               </td>
 
             </tr>
@@ -53,182 +57,84 @@
               <td>
 
 
-                <input type="button" class="btn btn-primary" value="Search" />
+                <input type="button" class="btn btn-primary" value="Find" (click)="FindAndAddDependent()" />
               </td>
               <td>
-                <label class="cellWidthForLabel">Not Found</label>
+                <label class="cellWidthForLabel" id="SearchResult"></label>
               </td>
               <td>
             </tr>
             <br />
           </table>
         </div>
-        
-      
+
+
       </div>
       <br />
 
+      <!--Customer List-->
       <div class="row  panel panel-default" *ngFor='let item of DetailCustomerModelList; let index=index'>
 
-
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-10">
-              {{item.cutomerName}}
-            </div>
-            <div class="col-xs-2">
-
-              <div *ngIf="item.childrenId == null && item.wifeId == null ;else other_content">
-
-                <p-button icon="pi pi-plus" class="ui-button-icon" (onClick)="AddDependent(item)">
-                </p-button>
-              </div>
-              <ng-template #other_content>
-                <p-button icon="pi pi-minus" class="ui-button-icon" (onClick)="deleteDependent(item)">
-                </p-button>
-              </ng-template>
-
-
-
-
-
-
-            </div>
-          </div>
-
-        </div>
-
-        <div class="panel-body">
-
-          <!--Basic info panel-->
-
-          <div class="panel panel-default">
-            <div class="panel-heading">Basic Info</div>
-            <div class="panel-body row">
-              <div class="col-xs-2">
-
-
-              </div>
-              <div class="col-xs-8">
-
-                <table>
-
-                  <input type="hidden" [value]="item.customerID" />
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Customer Name</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <input type="text" disabled [value]="item.cutomerName" />
-                    </td>
-                  </tr>
-                  <br />
-
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Age</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <input type="text" disabled [value]="item.age" />
-                    </td>
-                  </tr>
-                  <br />
-
-
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Gender</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModelList[index].gender">
-                        <option *ngFor="let c of genderList" [value]="c.gender1" [selected]="DetailCustomerModelList[index].gender === c.gender1">{{c.gender1}}</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <br />
-
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Marrige Status</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModelList[index].maritalStatus">
-                        <option *ngFor="let c of marriageList" [value]="c.maritalStatus1" [selected]="DetailCustomerModelList[index].maritalStatus === c.maritalStatus1">{{c.maritalStatus1}}</option>
-                      </select>
-
-                    </td>
-                  </tr>
-                  <br />
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Occupation </label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModelList[index].occupation">
-                        <option *ngFor="let c of occupationList" [value]="c.occuptionName" [selected]="DetailCustomerModelList[index].occupation === c.occuptionName">{{c.occuptionName}}</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <br />
-
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Occupation Details</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <input type="text" [value]="DetailCustomerModelList[index].occupationDetails" [(ngModel)]="DetailCustomerModelList[index].occupationDetails" />
-
-                    </td>
-                  </tr>
-
-                  <br />
-
-                  <tr>
-                    <td class="cellWidthForLabel">
-                      <label>Mobile Number</label>
-                    </td>
-                    <td class="cellWidthForInput">
-                      <input type="text" [value]="DetailCustomerModelList[index].mobileNumber" [(ngModel)]="DetailCustomerModelList[index].mobileNumber" />
-
-                    </td>
-                  </tr>
-
-                  <br />
-                </table>
+        <div *ngIf="item.dependantToBeDeleted==null || item.dependantToBeDeleted==false">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-10">
+                {{item.cutomerName}}
               </div>
               <div class="col-xs-2">
 
+                <div *ngIf="item.dependantParentID == -1;else other_content">
+
+                  <p-button icon="pi pi-plus" class="ui-button-icon" (onClick)="AddDependent(item)">
+                  </p-button>
+                </div>
+                <ng-template #other_content>
+                  <p-button icon="pi pi-minus" class="ui-button-icon" (onClick)="DeleteDependent(item)">
+                  </p-button>
+                </ng-template>
+
+
+
+
+
+
               </div>
             </div>
+
           </div>
 
-          <!--address panel-->
-          <div class="row">
-            <div class="col-xs-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">Address Info</div>
-                <div class="panel-body ">
+          <div class="panel-body">
+
+            <!--Basic info panel-->
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Basic Info</div>
+              <div class="panel-body row">
+                <div class="col-xs-2">
 
 
+                </div>
+                <div class="col-xs-8">
 
                   <table>
 
+                    <input type="hidden" [value]="item.customerID" />
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>Address </label>
+                        <label>Customer Name</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [value]="DetailCustomerModelList[index].address1" [(ngModel)]="DetailCustomerModelList[index].address1" />
+                        <input type="text" disabled [value]="item.cutomerName" />
                       </td>
                     </tr>
                     <br />
 
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>Street/Landmark Details</label>
+                        <label>Age</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [value]="DetailCustomerModelList[index].address2" [(ngModel)]="DetailCustomerModelList[index].address2" />
+                        <input type="text" disabled [value]="item.age" />
                       </td>
                     </tr>
                     <br />
@@ -236,119 +142,219 @@
 
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>Area</label>
+                        <label>Gender</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [value]="DetailCustomerModelList[index].area" [(ngModel)]="DetailCustomerModelList[index].area" />
+                        <select [(ngModel)]="DetailCustomerModelList[index].gender">
+                          <option *ngFor="let c of genderList" [value]="c.gender1" [selected]="DetailCustomerModelList[index].gender === c.gender1">{{c.gender1}}</option>
+                        </select>
                       </td>
                     </tr>
                     <br />
 
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>City</label>
+                        <label>Marrige Status</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModelList[index].city">
-                          <option *ngFor="let c of cityList" [value]="c.city1" [selected]="item.city === c.city1">{{c.city1}}</option>
+                        <select [(ngModel)]="DetailCustomerModelList[index].maritalStatus">
+                          <option *ngFor="let c of marriageList" [value]="c.maritalStatus1" [selected]="DetailCustomerModelList[index].maritalStatus === c.maritalStatus1">{{c.maritalStatus1}}</option>
                         </select>
 
                       </td>
                     </tr>
                     <br />
-
-
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>State</label>
+                        <label>Occupation </label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModelList[index].state">
-                          <option *ngFor="let c of statesList" [value]="c.state" [selected]="item.state === c.state">{{c.state}}</option>
+                        <select [(ngModel)]="DetailCustomerModelList[index].occupation">
+                          <option *ngFor="let c of occupationList" [value]="c.occuptionName" [selected]="DetailCustomerModelList[index].occupation === c.occuptionName">{{c.occuptionName}}</option>
                         </select>
-
                       </td>
                     </tr>
                     <br />
 
                     <tr>
                       <td class="cellWidthForLabel">
-                        <label>Pin</label>
+                        <label>Occupation Details</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModelList[index].pin">
-                          <option *ngFor="let c of pinList" [value]="c.pin" [selected]="item.pin === c.pin">{{c.pin}}</option>
-                        </select>
+                        <input type="text" [value]="DetailCustomerModelList[index].occupationDetails" [(ngModel)]="DetailCustomerModelList[index].occupationDetails" />
 
                       </td>
                     </tr>
+
+                    <br />
+
+                    <tr>
+                      <td class="cellWidthForLabel">
+                        <label>Mobile Number</label>
+                      </td>
+                      <td class="cellWidthForInput">
+                        <input type="text" [value]="DetailCustomerModelList[index].mobileNumber" [(ngModel)]="DetailCustomerModelList[index].mobileNumber" />
+
+                      </td>
+                    </tr>
+
                     <br />
                   </table>
+                </div>
+                <div class="col-xs-2">
 
                 </div>
               </div>
             </div>
 
-            <!--Education Panel-->
+            <!--address panel-->
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Address Info</div>
+                  <div class="panel-body ">
 
-            <div class="col-xs-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">Education Info</div>
-                <div class="panel-body ">
 
 
-                  <table>
+                    <table>
 
-                    <tr>
-                      <td class="cellWidthForLabel">
-                        <label>Education </label>
-                      </td>
-                      <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModelList[index].educationName">
-                          <option *ngFor="let c of educationList" [value]="c.educationName" [selected]="item.educationName === c.educationName">{{c.educationName}}</option>
-                        </select>
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Address </label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <input type="text" [value]="DetailCustomerModelList[index].address1" [(ngModel)]="DetailCustomerModelList[index].address1" />
+                        </td>
+                      </tr>
+                      <br />
 
-                      </td>
-                    </tr>
-                    <br />
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Street/Landmark Details</label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <input type="text" [value]="DetailCustomerModelList[index].address2" [(ngModel)]="DetailCustomerModelList[index].address2" />
+                        </td>
+                      </tr>
+                      <br />
 
-                    <tr>
-                      <td class="cellWidthForLabel">
-                        <label>Arabic Education </label>
-                      </td>
-                      <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModelList[index].arabicEducationName">
-                          <option *ngFor="let c of arabicEducationList" [value]="c.arabicEducationName" [selected]="item.arabicEducationName === c.arabicEducationName">{{c.arabicEducationName}}</option>
-                        </select>
 
-                      </td>
-                    </tr>
-                    <br />
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Area</label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <input type="text" [value]="DetailCustomerModelList[index].area" [(ngModel)]="DetailCustomerModelList[index].area" />
+                        </td>
+                      </tr>
+                      <br />
 
-                    <tr>
-                      <td class="cellWidthForLabel">
-                        <label>Eduction Details </label>
-                      </td>
-                      <td class="cellWidthForInput">
-                        <input type="text" [value]="item.educationDetails" [(ngModel)]="DetailCustomerModelList[index].educationDetails" />
-                      </td>
-                    </tr>
-                    <br />
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>City</label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <select [(ngModel)]="DetailCustomerModelList[index].city">
+                            <option *ngFor="let c of cityList" [value]="c.city1" [selected]="item.city === c.city1">{{c.city1}}</option>
+                          </select>
 
-                  </table>
+                        </td>
+                      </tr>
+                      <br />
+
+
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>State</label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <select [(ngModel)]="DetailCustomerModelList[index].state">
+                            <option *ngFor="let c of statesList" [value]="c.state" [selected]="item.state === c.state">{{c.state}}</option>
+                          </select>
+
+                        </td>
+                      </tr>
+                      <br />
+
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Pin</label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <select [(ngModel)]="DetailCustomerModelList[index].pin">
+                            <option *ngFor="let c of pinList" [value]="c.pin" [selected]="item.pin === c.pin">{{c.pin}}</option>
+                          </select>
+
+                        </td>
+                      </tr>
+                      <br />
+                    </table>
+
+                  </div>
                 </div>
+              </div>
 
+              <!--Education Panel-->
+
+              <div class="col-xs-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Education Info</div>
+                  <div class="panel-body ">
+
+
+                    <table>
+
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Education </label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <select [(ngModel)]="DetailCustomerModelList[index].educationName">
+                            <option *ngFor="let c of educationList" [value]="c.educationName" [selected]="item.educationName === c.educationName">{{c.educationName}}</option>
+                          </select>
+
+                        </td>
+                      </tr>
+                      <br />
+
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Arabic Education </label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <select [(ngModel)]="DetailCustomerModelList[index].arabicEducationName">
+                            <option *ngFor="let c of arabicEducationList" [value]="c.arabicEducationName" [selected]="item.arabicEducationName === c.arabicEducationName">{{c.arabicEducationName}}</option>
+                          </select>
+
+                        </td>
+                      </tr>
+                      <br />
+
+                      <tr>
+                        <td class="cellWidthForLabel">
+                          <label>Eduction Details </label>
+                        </td>
+                        <td class="cellWidthForInput">
+                          <input type="text" [value]="item.educationDetails" [(ngModel)]="DetailCustomerModelList[index].educationDetails" />
+                        </td>
+                      </tr>
+                      <br />
+
+                    </table>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div>
-    </div>
     <div class="col-xs-2">
 
     </div>
+  </div>
   </div>
 
 

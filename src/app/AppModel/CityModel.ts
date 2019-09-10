@@ -1,4 +1,4 @@
 export interface CityModel {
   cityId;
-  city;
+  city1;
 }

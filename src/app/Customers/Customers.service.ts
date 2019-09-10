@@ -58,7 +58,23 @@ export class CustomersService {
       );
   };
 
-  
+  public findCustomer(url: string, userName: string, dob: string) {
+
+    let params = new HttpParams().set('userName', userName).
+      set('dob',dob);
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { params: params, headers: headers };
+
+    return this._http.get<number>(AppSettings.API_ENDPOINT + url, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+
 
   
   public updateCustomer(url: string, cust: DetailCustomerModel[]) {
@@ -73,6 +89,8 @@ export class CustomersService {
         catchError(this.handleError)
       );
   };
+
+
 
 
   private handleError(error: HttpErrorResponse) {
