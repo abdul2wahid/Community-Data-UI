@@ -12,12 +12,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DatePipe } from '@angular/common';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
+
+
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../token.interceptor';
+import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
+import { CreateCustomerComponent } from './create-customer/create-customer.component';
 
 
 @NgModule({
-  declarations: [ViewCustomerComponent, EditCustomerComponent],
+  declarations: [ViewCustomerComponent, EditCustomerComponent, ViewCustomerDetailsComponent, CreateCustomerComponent],
   imports: [
     CommonModule, FormsModule, CustomersRoutingModule, TableModule, ButtonModule, DropdownModule, CalendarModule
   ],

@@ -117,6 +117,11 @@ export class EditCustomerComponent implements OnInit {
       })
   };
 
+  CancelEvent() {
+    this.router.navigate(['./customers']);
+  }
+
+
   UpdateListItems() {
     for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
 

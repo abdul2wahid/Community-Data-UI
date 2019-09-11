@@ -45,7 +45,8 @@ export interface DetailCustomerModel {
   dependantToBeAddedAsChild;
   dependantToBeDeleted;
 
-
+  DateFormatDOB;
+ 
 }
 
 

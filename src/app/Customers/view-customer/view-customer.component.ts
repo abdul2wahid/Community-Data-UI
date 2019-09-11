@@ -28,14 +28,20 @@ export class ViewCustomerComponent implements OnInit {
 
   }
 
-  detailsEvent(row: BasicCustomerModel) {
+  EditEvent(row: BasicCustomerModel) {
     this.router.navigate(['./edit', row.customerID], { relativeTo: this.route, });
   }
 
+  ViewEvent(row: BasicCustomerModel) {
+    this.router.navigate(['./view', row.customerID], { relativeTo: this.route, });
+  }
 
 
+  AddEvent(row: BasicCustomerModel) {
+    this.router.navigate(['./add'], { relativeTo: this.route, });
+  }
   custID: string;
-  deleteEvent(row: BasicCustomerModel) {
+  DeleteEvent(row: BasicCustomerModel) {
     this.custID = row.customerID;
     document.getElementById('myModal').style.display = "block";
     //document.getElementById('viewContainer').style.display = "none";
