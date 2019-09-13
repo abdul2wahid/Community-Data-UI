@@ -10,11 +10,18 @@ import { TokenInterceptor } from './token.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { ShaaredModule } from './shared/shared.module';
+import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { FooterComponent } from './shared/footer/footer.component';
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavBarComponent,
+    FooterComponent
    
   ],
   imports: [
@@ -22,12 +29,14 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ShaaredModule
     
-  
+
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    
   ],
   bootstrap: [AppComponent]
 })

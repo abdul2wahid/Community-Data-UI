@@ -6,6 +6,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { LoginService } from './login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { AppService } from '../app.service';
+import { SharedService } from '../shared/Shared.Service';
 
 //import { AlertService, AuthenticationService } from '../_services';
 
@@ -28,6 +30,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
   private authenticationService: LoginService,
     private datePipe: DatePipe,
+   
+    
   ) { }
 
   ngOnInit() {
@@ -36,7 +40,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       dob: ['', Validators.required ]
     });
-
+   
+ 
    // // reset login status
    //// this.authenticationService.logout();
 
@@ -74,7 +79,7 @@ export class LoginComponent implements OnInit {
          
         }
         else {
-         
+       
           sessionStorage.setItem('Token', String(data));
           this.router.navigate(['/customers']);
         }

@@ -21,6 +21,7 @@ export class AppService {
 
   public httpOptions: any;
   public result: any;
+  
 
   constructor(private _http: HttpClient) {
     //Http Headers Options
@@ -29,8 +30,11 @@ export class AppService {
         'Content-Type': 'application/json'
       }),
     };
-
+    debugger;
+  
   }
+
+
 
 
   public getGender( ) {

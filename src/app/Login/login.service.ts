@@ -20,14 +20,16 @@ export class LoginService{
       'Content-Type': 'application/json'
     }),
     responseType: 'text'
-  };
+    };
+
+   
   }
 
   public Login(url: string, credentials: any) {
     return this._http.post<string>(AppSettings.API_ENDPOINT + url, credentials, this.httpOptions)
       .pipe(
         catchError(this.handleError)
-      );
+    );
   };
 
   private handleError(error: HttpErrorResponse) {

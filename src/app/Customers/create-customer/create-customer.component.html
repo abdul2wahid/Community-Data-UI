@@ -46,7 +46,10 @@
                       <label>Customer Name</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" [(ngModel)]="DetailCustomerModel.cutomerName" />
+                      <input type="text" [(ngModel)]="DetailCustomerModel.cutomerName" required #uname="ngModel" />
+                      <div *ngIf="uname.invalid">
+                        Name required.
+                      </div>
                     </td>
                   </tr>
                   <br />
