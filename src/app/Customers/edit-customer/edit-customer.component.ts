@@ -15,6 +15,7 @@ import { EducationModel } from 'src/app/AppModel/EducationModel';
 import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
 import { isNullOrUndefined } from 'util';
 import { DatePipe } from '@angular/common';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-detailcustomer',
@@ -43,15 +44,24 @@ export class EditCustomerComponent implements OnInit {
   depDOB: string;
   relChoice: string;
 
+  FindUserForm: FormGroup;
 
   constructor(private custService: CustomersService,
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private datePipe:DatePipe) { }
+    private datePipe: DatePipe,
+    private formBuilder: FormBuilder) { }
   
   ngOnInit() {
 
+
+    this.FindUserForm = this.formBuilder.group(
+      {
+        searchName: ['', Validators.required],
+        searchDOB: ['', Validators.required],
+        realt:[''],
+      });
 
 
     this.appService.getGender().subscribe(
@@ -102,14 +112,39 @@ export class EditCustomerComponent implements OnInit {
       this.custService.getCustomer("Customer/Detail", this.route.snapshot.paramMap.get('id')).subscribe(
         data => {
           this.DetailCustomerModelList = data;
+
+          //for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
+          //  this.EditUserForm[i] = this.formBuilder.group(
+          //    {
+              
+          //      mobileNumber: ['', Validators.required],
+
+          //    });
+          //}
+
+
         })
     }, 200);
 
+    this.relChoice = "Child";
+
+
+  
 
 
   }
 
+
+
+  // convenience getter for easy access to form fields
+  get getFindFormControls() { return this.FindUserForm.controls; }
+
+
+
+
+
   updateEvent() {
+
     this.UpdateListItems();
     this.custService.updateCustomer("Customer/Update", this.DetailCustomerModelList).subscribe(
       data => {
@@ -183,7 +218,15 @@ export class EditCustomerComponent implements OnInit {
 
 
   parentID: string;
+
   FindAndAddDependent() {
+
+
+    if (this.FindUserForm.invalid) {
+      this.FindUserForm.markAllAsTouched();
+      return;
+    }
+
     document.getElementById('SearchResult').innerText = "";
     if (isNullOrUndefined(this.depUserName) || isNullOrUndefined(this.depDOB) || isNullOrUndefined(this.relChoice)) {
       document.getElementById('SearchResult').innerText = 'Incorrect Input, please select all values';

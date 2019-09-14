@@ -30,7 +30,6 @@ export class AppService {
         'Content-Type': 'application/json'
       }),
     };
-    debugger;
   
   }
 

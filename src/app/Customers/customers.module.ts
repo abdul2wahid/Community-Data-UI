@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {  FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { CalendarModule } from 'primeng/calendar';
 
@@ -23,7 +23,7 @@ import { CreateCustomerComponent } from './create-customer/create-customer.compo
 @NgModule({
   declarations: [ViewCustomerComponent, EditCustomerComponent, ViewCustomerDetailsComponent, CreateCustomerComponent],
   imports: [
-    CommonModule, FormsModule, CustomersRoutingModule, TableModule, ButtonModule, DropdownModule, CalendarModule
+    CommonModule, ReactiveFormsModule, CustomersRoutingModule, TableModule, ButtonModule, DropdownModule, CalendarModule, FormsModule
   ],
   providers: [
     DatePipe,

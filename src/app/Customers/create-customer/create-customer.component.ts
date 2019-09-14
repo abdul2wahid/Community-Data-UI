@@ -12,6 +12,7 @@ import { StatesModel } from 'src/app/AppModel/StatesModel';
 import { PinCodeModel } from 'src/app/AppModel/PinCodeModel';
 import { EducationModel } from 'src/app/AppModel/EducationModel';
 import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-customer',
@@ -37,15 +38,38 @@ export class CreateCustomerComponent implements OnInit {
   pinList: PinCodeModel[];
   educationList: EducationModel[];
   arabicEducationList: ArabicEducationModel[];
+  CreateUser: FormGroup;
 
+
+  custNameRequired: boolean;
 
   constructor(private custService: CustomersService,
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private formBuilder: FormBuilder,
+   ) { }
 
   ngOnInit() {
+
+    this.CreateUser = this.formBuilder.group(
+      {
+        custName: ['', Validators.required],
+        DOB: ['', Validators.required],
+        Gender: ['', Validators.required],
+        maritalStatus: ['', Validators.required],
+        occupation: ['', Validators.required],
+        mobileNumber: ['', Validators.required],
+        occupationDetails: ['', Validators.required],
+        area: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+        pin: ['', Validators.required],
+        educationName: ['', Validators.required],
+        arabicEducationName: ['', Validators.required],
+
+      });
 
     this.GetMasterData();
     this.DetailCustomerModel ={
@@ -92,7 +116,17 @@ export class CreateCustomerComponent implements OnInit {
     }
   }
 
+
+  // convenience getter for easy access to form fields
+  get getControls() { return this.CreateUser.controls; }
+
   SaveEvent() {
+
+    if(this.CreateUser.invalid)
+    {
+      this.CreateUser.markAllAsTouched();
+      return;
+    }
 
     this.DetailCustomerModel.arabicEducationID =
       this.arabicEducationList.find(x => x.arabicEducationName == this.DetailCustomerModel.arabicEducationName).arabicEducationId;
