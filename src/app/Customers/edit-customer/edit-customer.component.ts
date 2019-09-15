@@ -145,6 +145,31 @@ export class EditCustomerComponent implements OnInit {
 
   updateEvent() {
 
+    for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
+
+      if (isNullOrUndefined(this.DetailCustomerModelList[i].customerID) || this.DetailCustomerModelList[i].customerID == '') {
+        alert('All mandatory fields needs to be updated')
+        return;
+      }
+      else if (isNullOrUndefined(this.DetailCustomerModelList[i].Name) || this.DetailCustomerModelList[i].Name == '') {
+        alert('All mandatory fields needs to be updated')
+        return;
+      }
+      else if (isNullOrUndefined(this.DetailCustomerModelList[i].mobileNumber) || this.DetailCustomerModelList[i].mobileNumber == '') {
+        alert('All mandatory fields needs to be updated')
+        return;
+      }
+      else if (isNullOrUndefined(this.DetailCustomerModelList[i].occupationDetails) || this.DetailCustomerModelList[i].occupationDetails == '') {
+        alert('All mandatory fields needs to be updated')
+        return;
+      }
+      else if (isNullOrUndefined(this.DetailCustomerModelList[i].area) || this.DetailCustomerModelList[i].area == '') {
+        alert('All mandatory fields needs to be updated')
+        return;
+      }
+
+    }
+
     this.UpdateListItems();
     this.custService.updateCustomer("Customer/Update", this.DetailCustomerModelList).subscribe(
       data => {
@@ -238,7 +263,7 @@ export class EditCustomerComponent implements OnInit {
       return;
     }
     else {
-      let duplicate = this.DetailCustomerModelList.find(x => x.cutomerName.toLocaleLowerCase() == this.depUserName.toLocaleLowerCase() &&
+      let duplicate = this.DetailCustomerModelList.find(x => x.Name.toLocaleLowerCase() == this.depUserName.toLocaleLowerCase() &&
         x.dob == this.datePipe.transform(this.depDOB, "dd-MM-yyyy"));
       if (!isNullOrUndefined(duplicate)) {
         document.getElementById('SearchResult').innerText = 'User already listed, duplicate user';

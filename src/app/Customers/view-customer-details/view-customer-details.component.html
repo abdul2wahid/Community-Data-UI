@@ -19,7 +19,7 @@
 
       <!--View details-->
       <div class="row  panel panel-default" *ngFor='let item of DetailCustomerModelList'>
-        <div class="panel-heading">{{item.cutomerName}}</div>
+        <div class="panel-heading">{{item.name}}</div>
 
         <div class="panel-body">
 
@@ -42,7 +42,7 @@
                       <label>Customer Name</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" disabled [value]="item.cutomerName" />
+                      <input type="text" disabled [value]="item.name" />
                     </td>
                   </tr>
                   <br />

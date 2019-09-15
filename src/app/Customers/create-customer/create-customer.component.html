@@ -38,7 +38,7 @@
               </div>
               <div class="col-xs-8"  >
                 
-                <table [formGroup]="CreateUser">
+                <table [formGroup]="CreateUserForm">
 
 
                   <tr>
@@ -46,10 +46,10 @@
                       <label>Customer Name *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" [(ngModel)]="DetailCustomerModel.cutomerName" formControlName="custName" />
+                      <input type="text"  formControlName="Name" />
 
-                      <div *ngIf="(getControls.custName.dirty || getControls.custName.touched) && getControls.custName.invalid && getControls.custName.errors.required" class="text-danger">
-                        <div *ngIf="getControls.custName.errors.required">
+                      <div *ngIf="(getControls.Name.dirty || getControls.Name.touched) && getControls.Name.invalid && getControls.Name.errors.required" class="text-danger">
+                        <div *ngIf="getControls.Name.errors.required">
                           Name required.
                         </div>
                       </div>
@@ -62,7 +62,8 @@
                       <label>DOB *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" [(ngModel)]="DetailCustomerModel.age" formControlName="DOB" />
+                      <!--<input type="text" [(ngModel)]="DetailCustomerModel.age" formControlName="DOB" />-->
+                      <p-calendar  showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" formControlName="DOB"></p-calendar>
 
                       <div *ngIf="(getControls.DOB.dirty || getControls.DOB.touched) && getControls.DOB.invalid && getControls.DOB.errors.required" class="text-danger">
                         <div *ngIf="getControls.DOB.errors.required">
@@ -70,8 +71,6 @@
                         </div>
                       </div>
                     </td>
-                  </tr>
-                  <br />
 
 
                   <tr>
@@ -79,12 +78,12 @@
                       <label>Gender *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModel.gender" formControlName="Gender">
+                      <select  formControlName="gender">
                         <option *ngFor="let c of genderList" [value]="c.gender1">{{c.gender1}}</option>
                       </select>
 
-                      <div *ngIf="(getControls.Gender.dirty || getControls.Gender.touched) && getControls.Gender.invalid && getControls.Gender.errors.required" class="text-danger">
-                        <div *ngIf="getControls.Gender.errors.required">
+                      <div *ngIf="(getControls.gender.dirty || getControls.gender.touched) && getControls.gender.invalid && getControls.gender.errors.required" class="text-danger">
+                        <div *ngIf="getControls.gender.errors.required">
                           Gender required.
                         </div>
                       </div>
@@ -97,7 +96,7 @@
                       <label>Marriage Status *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModel.maritalStatus" formControlName="maritalStatus">
+                      <select  formControlName="maritalStatus">
                         <option *ngFor="let c of marriageList" [value]="c.maritalStatus1">{{c.maritalStatus1}}</option>
                       </select>
 
@@ -114,7 +113,7 @@
                       <label>Occupation *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select [(ngModel)]="DetailCustomerModel.occupation" formControlName="occupation">
+                      <select  formControlName="occupation">
                         <option *ngFor="let c of occupationList" [value]="c.occuptionName">{{c.occuptionName}}</option>
                       </select>
                       <div *ngIf="(getControls.occupation.dirty || getControls.occupation.touched) && getControls.occupation.invalid && getControls.occupation.errors.required" class="text-danger">
@@ -131,7 +130,7 @@
                       <label>Occupation Details *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" [(ngModel)]="DetailCustomerModel.occupationDetails" formControlName="occupationDetails" />
+                      <input type="text"  formControlName="occupationDetails" />
 
                       <div *ngIf="(getControls.occupationDetails.dirty || getControls.occupationDetails.touched) && getControls.occupationDetails.invalid && getControls.occupationDetails.errors.required" class="text-danger">
                         <div *ngIf="getControls.occupationDetails.errors.required">
@@ -149,7 +148,7 @@
                       <label>Mobile Number *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text" [(ngModel)]="DetailCustomerModel.mobileNumber"  formControlName="mobileNumber" />
+                      <input type="text"  formControlName="mobileNumber" />
 
                       <div *ngIf="(getControls.mobileNumber.dirty || getControls.mobileNumber.touched) && getControls.mobileNumber.invalid && getControls.mobileNumber.errors.required" class="text-danger">
                         <div *ngIf="getControls.mobileNumber.errors.required">
@@ -178,14 +177,14 @@
 
 
 
-                  <table  [formGroup]="CreateUser">
+                  <table  [formGroup]="CreateUserForm">
 
                     <tr>
                       <td class="cellWidthForLabel">
                         <label>Address </label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [(ngModel)]="DetailCustomerModel.address1" />
+                        <input type="text"  />
                       </td>
                     </tr>
                     <br />
@@ -195,7 +194,7 @@
                         <label>Street/Landmark Details</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [(ngModel)]="DetailCustomerModel.address2" />
+                        <input type="text"  />
                       </td>
                     </tr>
                     <br />
@@ -206,7 +205,7 @@
                         <label>Area *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [(ngModel)]="DetailCustomerModel.area" formControlName="area" />
+                        <input type="text" formControlName="area" />
 
                       <div *ngIf="(getControls.area.dirty || getControls.area.touched) && getControls.area.invalid && getControls.area.errors.required" class="text-danger">
                         <div *ngIf="getControls.area.errors.required">
@@ -223,7 +222,7 @@
                         <label>City *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModel.city" formControlName="city" >
+                        <select  formControlName="city" >
                           <option *ngFor="let c of cityList" [value]="c.city1">{{c.city1}}</option>
                         </select>
                         <div *ngIf="(getControls.city.dirty || getControls.city.touched) && getControls.city.invalid && getControls.city.errors.required" class="text-danger">
@@ -241,7 +240,7 @@
                         <label>State *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModel.state" formControlName="state" >
+                        <select formControlName="state" >
                           <option *ngFor="let c of statesList" [value]="c.state">{{c.state}}</option>
                         </select>
                         <div *ngIf="(getControls.state.dirty || getControls.state.touched) && getControls.state.invalid && getControls.state.errors.required" class="text-danger">
@@ -258,7 +257,7 @@
                         <label>Pin *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModel.pin" formControlName="pin" >
+                        <select  formControlName="pin" >
                           <option *ngFor="let c of pinList" [value]="c.pin">{{c.pin}}</option>
                         </select>
                         <div *ngIf="(getControls.pin.dirty || getControls.pin.touched) && getControls.pin.invalid && getControls.pin.errors.required" class="text-danger">
@@ -283,14 +282,14 @@
                 <div class="panel-body ">
 
 
-                  <table [formGroup]="CreateUser">
+                  <table [formGroup]="CreateUserForm">
 
                     <tr>
                       <td class="cellWidthForLabel">
                         <label>Education *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModel.educationName" formControlName="educationName">
+                        <select  formControlName="educationName">
                           <option *ngFor="let c of educationList" [value]="c.educationName">{{c.educationName}}</option>
                         </select>
                         <div *ngIf="(getControls.educationName.dirty || getControls.educationName.touched) && getControls.educationName.invalid && getControls.educationName.errors.required" class="text-danger">
@@ -307,7 +306,7 @@
                         <label>Arabic Education *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select [(ngModel)]="DetailCustomerModel.arabicEducationName" formControlName="arabicEducationName">
+                        <select formControlName="arabicEducationName">
                           <option *ngFor="let c of arabicEducationList" [value]="c.arabicEducationName">{{c.arabicEducationName}}</option>
                         </select>
                         <div *ngIf="(getControls.arabicEducationName.dirty || getControls.arabicEducationName.touched) && getControls.arabicEducationName.invalid && getControls.arabicEducationName.errors.required" class="text-danger">
@@ -324,7 +323,7 @@
                         <label>Eduction Details </label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text" [(ngModel)]="DetailCustomerModel.educationDetails" />
+                        <input type="text" />
                       </td>
                     </tr>
                     <br />

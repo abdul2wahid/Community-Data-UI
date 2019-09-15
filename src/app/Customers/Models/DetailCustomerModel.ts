@@ -1,7 +1,7 @@
 
 export interface DetailCustomerModel {
   customerID;
-  cutomerName;
+  Name;
   age;
   dob;
   genderId;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailCustomerModel } from '../Models/DetailCustomerModel';
 import { CustomersService } from '../Customers.service'
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Event } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppService } from '../../app.service'
 import { GenderModel } from 'src/app/AppModel/GenderModel';
@@ -38,7 +38,8 @@ export class CreateCustomerComponent implements OnInit {
   pinList: PinCodeModel[];
   educationList: EducationModel[];
   arabicEducationList: ArabicEducationModel[];
-  CreateUser: FormGroup;
+
+  CreateUserForm: FormGroup;
 
 
   custNameRequired: boolean;
@@ -53,11 +54,11 @@ export class CreateCustomerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.CreateUser = this.formBuilder.group(
+    this.CreateUserForm = this.formBuilder.group(
       {
-        custName: ['', Validators.required],
+        Name: ['', Validators.required],
         DOB: ['', Validators.required],
-        Gender: ['', Validators.required],
+        gender: ['', Validators.required],
         maritalStatus: ['', Validators.required],
         occupation: ['', Validators.required],
         mobileNumber: ['', Validators.required],
@@ -68,13 +69,17 @@ export class CreateCustomerComponent implements OnInit {
         pin: ['', Validators.required],
         educationName: ['', Validators.required],
         arabicEducationName: ['', Validators.required],
+        educationDetails: [''],
+        arabicEducationID: [''],
+        educationId: [''],
+
 
       });
 
     this.GetMasterData();
     this.DetailCustomerModel ={
       customerID : -1,
-      cutomerName :"",
+      Name :"",
       age : -1,
       dob: "2012-04-23T18:25:43.511Z",
       genderId : -1,
@@ -116,17 +121,22 @@ export class CreateCustomerComponent implements OnInit {
     }
   }
 
+  ChangedEvent(event: Event) {
+    debugger;
+  }
 
-  // convenience getter for easy access to form fields
-  get getControls() { return this.CreateUser.controls; }
+   //convenience getter for easy access to form fields
+  get getControls() { return this.CreateUserForm.controls; }
 
   SaveEvent() {
 
-    if(this.CreateUser.invalid)
+    if (this.CreateUserForm.invalid)
     {
-      this.CreateUser.markAllAsTouched();
+      this.CreateUserForm.markAllAsTouched();
       return;
     }
+
+    this.DetailCustomerModel = this.CreateUserForm.value;
 
     this.DetailCustomerModel.arabicEducationID =
       this.arabicEducationList.find(x => x.arabicEducationName == this.DetailCustomerModel.arabicEducationName).arabicEducationId;
@@ -146,7 +156,7 @@ export class CreateCustomerComponent implements OnInit {
       this.cityList.find(x => x.city1 == this.DetailCustomerModel.city).cityId;
 
     this.DetailCustomerModel.stateId =
-      this.statesList.find(x => x.StateId == this.DetailCustomerModel.state).StateId;
+      this.statesList.find(x => x.state == this.DetailCustomerModel.state).StateId;
 
 
     this.custService.CreateCustomer("Customer", this.DetailCustomerModel).subscribe(
