@@ -61,7 +61,7 @@ export class CreateCustomerComponent implements OnInit {
         gender: ['', Validators.required],
         maritalStatus: ['', Validators.required],
         occupation: ['', Validators.required],
-        mobileNumber: ['', Validators.required],
+        mobileNumber: [''],
         occupationDetails: ['', Validators.required],
         area: ['', Validators.required],
         city: ['', Validators.required],
@@ -79,7 +79,7 @@ export class CreateCustomerComponent implements OnInit {
     this.GetMasterData();
     this.DetailCustomerModel ={
       customerID : -1,
-      Name :"",
+      name :"",
       age : -1,
       dob: "2012-04-23T18:25:43.511Z",
       genderId : -1,
@@ -156,11 +156,12 @@ export class CreateCustomerComponent implements OnInit {
       this.cityList.find(x => x.city1 == this.DetailCustomerModel.city).cityId;
 
     this.DetailCustomerModel.stateId =
-      this.statesList.find(x => x.state == this.DetailCustomerModel.state).StateId;
+      this.statesList.find(x => x.state == this.DetailCustomerModel.state).stateId;
 
 
     this.custService.CreateCustomer("Customer", this.DetailCustomerModel).subscribe(
-     data => {
+      data => {
+       if(data==true)
         this.router.navigate(['./customers']);
       })
   }

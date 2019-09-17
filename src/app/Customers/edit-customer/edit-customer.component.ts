@@ -13,9 +13,9 @@ import { StatesModel } from 'src/app/AppModel/StatesModel';
 import { PinCodeModel } from 'src/app/AppModel/PinCodeModel';
 import { EducationModel } from 'src/app/AppModel/EducationModel';
 import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, debug } from 'util';
 import { DatePipe } from '@angular/common';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-detailcustomer',
@@ -25,6 +25,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class EditCustomerComponent implements OnInit {
 
   DetailCustomerModelList: DetailCustomerModel[];
+
   genderList: GenderModel[];
   selectedGender: GenderModel;
 
@@ -39,12 +40,14 @@ export class EditCustomerComponent implements OnInit {
   pinList: PinCodeModel[];
   educationList: EducationModel[];
   arabicEducationList: ArabicEducationModel[];
-  
+
   depUserName: string;
   depDOB: string;
   relChoice: string;
 
   FindUserForm: FormGroup;
+  myArray: FormArray;
+  EditUserForm: FormGroup;
 
   constructor(private custService: CustomersService,
     private appService: AppService,
@@ -52,7 +55,7 @@ export class EditCustomerComponent implements OnInit {
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     private formBuilder: FormBuilder) { }
-  
+
   ngOnInit() {
 
 
@@ -60,7 +63,15 @@ export class EditCustomerComponent implements OnInit {
       {
         searchName: ['', Validators.required],
         searchDOB: ['', Validators.required],
-        realt:[''],
+        realt: [''],
+      });
+
+   
+
+    var modal = <DetailCustomerModel>{};
+    this.EditUserForm = this.formBuilder.group(
+      {
+        myArray: this.formBuilder.array([])
       });
 
 
@@ -113,67 +124,127 @@ export class EditCustomerComponent implements OnInit {
         data => {
           this.DetailCustomerModelList = data;
 
-          //for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
-          //  this.EditUserForm[i] = this.formBuilder.group(
-          //    {
-              
-          //      mobileNumber: ['', Validators.required],
 
-          //    });
-          //}
+          if (this.DetailCustomerModelList.length >= 1) {
+            this.myArray = this.EditUserForm.get('myArray') as FormArray;
+            while (this.myArray.length !== 0) {
+              this.myArray.removeAt(0)
+            }
+            
+            for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
+
+              this.myArray.push(this.createItem(this.DetailCustomerModelList[i]));
+
+              this.EditUserForm.controls.myArray.controls[i].controls.gender.setValue(this.DetailCustomerModelList[i].gender, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus.setValue(this.DetailCustomerModelList[i].maritalStatus, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.occupation.setValue(this.DetailCustomerModelList[i].occupation, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.occupationDetails.setValue(this.DetailCustomerModelList[i].occupationDetails, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.mobileNumber.setValue(this.DetailCustomerModelList[i].mobileNumber, { onlySelf: true });
 
 
+              this.EditUserForm.controls.myArray.controls[i].controls.area.setValue(this.DetailCustomerModelList[i].area, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.city.setValue(this.DetailCustomerModelList[i].city, { onlySelf: true });
+
+
+              this.EditUserForm.controls.myArray.controls[i].controls.state.setValue(this.DetailCustomerModelList[i].state, { onlySelf: true });
+
+              this.EditUserForm.controls.myArray.controls[i].controls.pin.setValue(this.DetailCustomerModelList[i].pin, { onlySelf: true });
+
+              this.EditUserForm.controls.myArray.controls[i].controls.educationName.setValue(this.DetailCustomerModelList[i].educationName, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName.setValue(this.DetailCustomerModelList[i].arabicEducationName, { onlySelf: true });
+
+              this.EditUserForm.controls.myArray.controls[i].controls.customerID.setValue(this.DetailCustomerModelList[i].customerID, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.name.setValue(this.DetailCustomerModelList[i].name, { onlySelf: true });
+              this.EditUserForm.controls.myArray.controls[i].controls.dob.setValue(this.DetailCustomerModelList[i].dob, { onlySelf: true });
+
+            }
+          }
         })
     }, 200);
+
 
     this.relChoice = "Child";
 
 
-  
+
 
 
   }
 
+  createItem(DetailCustomerModel: DetailCustomerModel): FormGroup {
+  
+    return this.formBuilder.group({
+     
+      customerID: [ DetailCustomerModel.customerID , Validators.required],
+      name: [ DetailCustomerModel.name, Validators.required],
+      dob: [ DetailCustomerModel.dob, Validators.required],
+      genderId: [DetailCustomerModel.genderId ],
+      gender: [ DetailCustomerModel.gender , Validators.required],
+      maritalStatus: [ DetailCustomerModel.maritalStatus , Validators.required],
+      maritalStatusId: [ DetailCustomerModel.maritalStatusId],
+      occupation: [DetailCustomerModel.occupation , Validators.required],
+      occupationId: [ DetailCustomerModel.occupationId ],
+      mobileNumber: [ DetailCustomerModel.mobileNumber , Validators.required],
 
+      educationDetails: [DetailCustomerModel.educationDetails ],
+      occupationDetails: [DetailCustomerModel.occupationDetails , Validators.required],
+      arabicEducationID: [DetailCustomerModel.arabicEducationID ],
+      arabicEducationName: [DetailCustomerModel.arabicEducationName , Validators.required],
+      educationName: [DetailCustomerModel.educationName , Validators.required],
+      educationId: [DetailCustomerModel.educationId ],
+
+
+      address1: [DetailCustomerModel.address1 ],
+      address2: [DetailCustomerModel.address2 ],
+      area: [DetailCustomerModel.area , Validators.required],
+      cityId: [DetailCustomerModel.cityId ],
+      pinId: [DetailCustomerModel.pinId ],
+
+      city: [DetailCustomerModel.city , Validators.required],
+      pin: [DetailCustomerModel.pin , Validators.required],
+      state: [DetailCustomerModel.state, Validators.required],
+
+      stateId: [DetailCustomerModel.stateId ],
+
+      createdBy: [DetailCustomerModel.createdBy ],
+      createdOn: [DetailCustomerModel.createdOn ],
+      updatedBy: [DetailCustomerModel.updatedBy ],
+      updatedOn: [DetailCustomerModel.updatedOn ],
+
+      wifeId: [DetailCustomerModel.wifeId ],
+      childrenId: [DetailCustomerModel.childrenId ],
+      dependantParentID: [DetailCustomerModel.dependantParentID ],
+      dependantToBeAddedAsChild: [DetailCustomerModel.dependantToBeAddedAsChild ],
+      dependantToBeDeleted: [DetailCustomerModel.dependantToBeDeleted ],
+
+      //  DateFormatDOB: [''],
+    });
+  }
 
   // convenience getter for easy access to form fields
   get getFindFormControls() { return this.FindUserForm.controls; }
 
 
 
-
+  // convenience getter for easy access to form fields
+  get getEditFormControls() { return this.EditUserForm.controls.myArray }
 
   updateEvent() {
 
-    for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
-
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].customerID) || this.DetailCustomerModelList[i].customerID == '') {
-        alert('All mandatory fields needs to be updated')
-        return;
-      }
-      else if (isNullOrUndefined(this.DetailCustomerModelList[i].Name) || this.DetailCustomerModelList[i].Name == '') {
-        alert('All mandatory fields needs to be updated')
-        return;
-      }
-      else if (isNullOrUndefined(this.DetailCustomerModelList[i].mobileNumber) || this.DetailCustomerModelList[i].mobileNumber == '') {
-        alert('All mandatory fields needs to be updated')
-        return;
-      }
-      else if (isNullOrUndefined(this.DetailCustomerModelList[i].occupationDetails) || this.DetailCustomerModelList[i].occupationDetails == '') {
-        alert('All mandatory fields needs to be updated')
-        return;
-      }
-      else if (isNullOrUndefined(this.DetailCustomerModelList[i].area) || this.DetailCustomerModelList[i].area == '') {
-        alert('All mandatory fields needs to be updated')
-        return;
-      }
-
+    if (this.EditUserForm.controls.myArray.invalid) {
+      this.EditUserForm.controls.myArray.markAllAsTouched();
+      return;
     }
 
+
+
     this.UpdateListItems();
-    this.custService.updateCustomer("Customer/Update", this.DetailCustomerModelList).subscribe(
+ 
+    this.custService.updateCustomer("Customer/Update", this.EditUserForm.controls.myArray.getRawValue()).subscribe(
       data => {
-        this.router.navigate(['./customers']);
+        if (data == true) {
+          this.router.navigate(['./customers']);
+        }
       })
   };
 
@@ -183,50 +254,57 @@ export class EditCustomerComponent implements OnInit {
 
 
   UpdateListItems() {
-    for (let i = 0; i < this.DetailCustomerModelList.length; i++) {
+    for (let i = 0; i < this.EditUserForm.controls.myArray.controls.length; i++) {
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].educationName ))
-        this.DetailCustomerModelList[i].educationId = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.educationName))
+        this.EditUserForm.controls.myArray.controls[i].controls.educationId.value = 0;
       else
-        this.DetailCustomerModelList[i].educationId = this.educationList.find(x => x.educationName == this.DetailCustomerModelList[i].educationName).educationId;
+        this.EditUserForm.controls.myArray.controls[i].controls.educationId.value = this.educationList.find(x => x.educationName == this.EditUserForm.controls.myArray.controls[i].controls.educationName.value).educationId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].arabicEducationName ))
-        this.DetailCustomerModelList[i].arabicEducationID = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName))
+        this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationID.value = 0;
       else
-        this.DetailCustomerModelList[i].arabicEducationID = this.arabicEducationList.find(x => x.arabicEducationName == this.DetailCustomerModelList[i].arabicEducationName).arabicEducationId;
+        this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationID.value = this.arabicEducationList.find(x => x.arabicEducationName == this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName.value).arabicEducationId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].occupation ))
-        this.DetailCustomerModelList[i].occupationId = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.occupation))
+        this.EditUserForm.controls.myArray.controls[i].controls.occupationId.value = 0;
       else
-        this.DetailCustomerModelList[i].occupationId = this.occupationList.find(x => x.occuptionName == this.DetailCustomerModelList[i].occupation).occupationId;
+        this.EditUserForm.controls.myArray.controls[i].controls.occupationId.value = this.occupationList.find(x => x.occuptionName == this.EditUserForm.controls.myArray.controls[i].controls.occupation.value).occupationId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].maritalStatus ))
-        this.DetailCustomerModelList[i].maritalStatusId = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus))
+        this.EditUserForm.controls.myArray.controls[i].controls.maritalStatusId.value = 0;
       else
-        this.DetailCustomerModelList[i].maritalStatusId = this.marriageList.find(x => x.maritalStatus1 == this.DetailCustomerModelList[i].maritalStatus).maritalStatusId;
+        this.EditUserForm.controls.myArray.controls[i].controls.maritalStatusId.value = this.marriageList.find(x => x.maritalStatus1 == this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus.value).maritalStatusId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].gender ))
-        this.DetailCustomerModelList[i].genderId = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.gender))
+        this.EditUserForm.controls.myArray.controls[i].controls.genderId.value = 0;
       else
-        this.DetailCustomerModelList[i].genderId = this.genderList.find(x => x.gender1 == this.DetailCustomerModelList[i].gender).genderId;
+        this.EditUserForm.controls.myArray.controls[i].controls.genderId.value = this.genderList.find(x => x.gender1 == this.EditUserForm.controls.myArray.controls[i].controls.gender.value).genderId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].city))
-        this.DetailCustomerModelList[i].cityId = 0;
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.city))
+        this.EditUserForm.controls.myArray.controls[i].controls.cityId.value = 0;
       else
-        this.DetailCustomerModelList[i].cityId = this.cityList.find(x => x.city1 == this.DetailCustomerModelList[i].city).cityId;
+        this.EditUserForm.controls.myArray.controls[i].controls.cityId.value = this.cityList.find(x => x.city1 == this.EditUserForm.controls.myArray.controls[i].controls.city.value).cityId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].state))
-        this.DetailCustomerModelList[i].stateId = 0;
-      else
-        this.DetailCustomerModelList[i].stateId = this.statesList.find(x => x.state == this.DetailCustomerModelList[i].state).StateId;
 
-      if (isNullOrUndefined(this.DetailCustomerModelList[i].pin))
-        this.DetailCustomerModelList[i].pinId = 0;
+
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.pin))
+        this.EditUserForm.controls.myArray.controls[i].controls.pinId.value = 0;
       else
-        this.DetailCustomerModelList[i].pinId = this.pinList.find(x => x.pin == this.DetailCustomerModelList[i].pin).pinId;
+        this.EditUserForm.controls.myArray.controls[i].controls.pinId.value = this.pinList.find(x => x.pin == this.EditUserForm.controls.myArray.controls[i].controls.pin.value).pinId;
+
+      //let newDate = new Date(this.EditUserForm.controls.myArray.controls[i].controls.dob.value);
+      //this.EditUserForm.controls.myArray.controls[i].controls.dob.value = this.datePipe.transform(newDate, 'dd-mm-yyyy');
+
+      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.state))
+        this.EditUserForm.controls.myArray.controls[i].controls.stateId.value = 0;
+      else {
+        this.EditUserForm.controls.myArray.controls[i].controls.stateId.value = this.statesList.find(x => x.state == this.EditUserForm.controls.myArray.controls[i].controls.state.value).stateId;
+      }
     }
-    
+
   };
+
 
 
   AddDependent(item: DetailCustomerModel) {
@@ -238,15 +316,22 @@ export class EditCustomerComponent implements OnInit {
 
 
   DeleteDependent(item: DetailCustomerModel) {
-    this.DetailCustomerModelList.find(x => x.customerID == item.customerID).dependantToBeDeleted = true;
-  }
 
+    for (let currentItem of this.myArray.controls) {
+
+      if (currentItem.controls.customerID.value == item.controls.customerID.value) {
+
+        currentItem.controls.dependantToBeDeleted.value = true;
+      }
+    }
+ 
+  }
 
   parentID: string;
 
   FindAndAddDependent() {
 
-
+    debugger;
     if (this.FindUserForm.invalid) {
       this.FindUserForm.markAllAsTouched();
       return;
@@ -263,30 +348,66 @@ export class EditCustomerComponent implements OnInit {
       return;
     }
     else {
-      let duplicate = this.DetailCustomerModelList.find(x => x.Name.toLocaleLowerCase() == this.depUserName.toLocaleLowerCase() &&
+      let duplicate = this.DetailCustomerModelList.find(x => x.name.toLocaleLowerCase() == this.depUserName.toLocaleLowerCase() &&
         x.dob == this.datePipe.transform(this.depDOB, "dd-MM-yyyy"));
       if (!isNullOrUndefined(duplicate)) {
         document.getElementById('SearchResult').innerText = 'User already listed, duplicate user';
         return;
       }
     }
- 
+
     this.custService.findCustomer("Customer/Find", this.depUserName, this.datePipe.transform(this.depDOB, "dd-MM-yyyy")).subscribe(
       data => {
         if (data >= 0) {
           this.custService.getCustomer("Customer/Detail", data.toString()).subscribe(
             x => {
               if (x.length == 1) {
-                  
-                this.parentID = this.DetailCustomerModelList.find(x => x.wifeId == null && x.childrenId == null).customerID
-                x[0].dependantParentID = this.parentID;
+
+                for (let item of this.myArray.controls) {
+                
+                  if (item.controls.wifeId.value == null && item.controls.childrenId.value == null) {
+                    x[0].dependantParentID = item.controls.customerID.value;
+                    break;
+                  }
+                }
+
+                //this.parentID = this.DetailCustomerModelList.find(x => x.wifeId == null && x.childrenId == null).customerID
+                //x[0].dependantParentID = this.parentID;
 
                 if (this.relChoice == "Child")
                   x[0].childrenId = x[0].customerID;
                 else
                   x[0].wifeId = x[0].customerID;
 
-                this.DetailCustomerModelList.push(x[0]);
+                
+
+                this.myArray.push(this.createItem(x[0]));
+
+                let i: number = this.myArray.controls.length - 1;
+                //set defualt values
+                this.myArray.controls[i].controls.gender.setValue(x[0].gender, { onlySelf: true });
+                this.myArray.controls[i].controls.maritalStatus.setValue(x[0].maritalStatus, { onlySelf: true });
+                this.myArray.controls[i].controls.occupation.setValue(x[0].occupation, { onlySelf: true });
+                this.myArray.controls[i].controls.occupationDetails.setValue(x[0].occupationDetails, { onlySelf: true });
+                this.myArray.controls[i].controls.mobileNumber.setValue(x[0].mobileNumber, { onlySelf: true });
+
+
+                this.myArray.controls[i].controls.area.setValue(x[0].area, { onlySelf: true });
+                this.myArray.controls[i].controls.city.setValue(x[0].city, { onlySelf: true });
+
+
+                this.myArray.controls[i].controls.state.setValue(x[0].state, { onlySelf: true });
+
+                this.myArray.controls[i].controls.pin.setValue(x[0].pin, { onlySelf: true });
+
+                this.myArray.controls[i].controls.educationName.setValue(x[0].educationName, { onlySelf: true });
+                this.myArray.controls[i].controls.arabicEducationName.setValue(x[0].arabicEducationName, { onlySelf: true });
+
+                this.myArray.controls[i].controls.customerID.setValue(x[0].customerID, { onlySelf: true });
+                this.myArray.controls[i].controls.name.setValue(x[0].name, { onlySelf: true });
+                this.myArray.controls[i].controls.dob.setValue(x[0].dob, { onlySelf: true });
+
+
                 document.getElementById('SearchResult').innerText = 'User Found and listed below, Please click on save to add the newly listed dependent';
               }
               else {
@@ -299,4 +420,6 @@ export class EditCustomerComponent implements OnInit {
         }
       });
   }
+
+  
 }

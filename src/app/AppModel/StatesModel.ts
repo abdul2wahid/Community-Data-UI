@@ -1,4 +1,4 @@
 export interface StatesModel {
-  StateId;
+  stateId;
   state;
 }
