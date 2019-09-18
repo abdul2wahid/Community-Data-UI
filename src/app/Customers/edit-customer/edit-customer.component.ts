@@ -135,28 +135,6 @@ export class EditCustomerComponent implements OnInit {
 
               this.myArray.push(this.createItem(this.DetailCustomerModelList[i]));
 
-              this.EditUserForm.controls.myArray.controls[i].controls.gender.setValue(this.DetailCustomerModelList[i].gender, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus.setValue(this.DetailCustomerModelList[i].maritalStatus, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.occupation.setValue(this.DetailCustomerModelList[i].occupation, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.occupationDetails.setValue(this.DetailCustomerModelList[i].occupationDetails, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.mobileNumber.setValue(this.DetailCustomerModelList[i].mobileNumber, { onlySelf: true });
-
-
-              this.EditUserForm.controls.myArray.controls[i].controls.area.setValue(this.DetailCustomerModelList[i].area, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.city.setValue(this.DetailCustomerModelList[i].city, { onlySelf: true });
-
-
-              this.EditUserForm.controls.myArray.controls[i].controls.state.setValue(this.DetailCustomerModelList[i].state, { onlySelf: true });
-
-              this.EditUserForm.controls.myArray.controls[i].controls.pin.setValue(this.DetailCustomerModelList[i].pin, { onlySelf: true });
-
-              this.EditUserForm.controls.myArray.controls[i].controls.educationName.setValue(this.DetailCustomerModelList[i].educationName, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName.setValue(this.DetailCustomerModelList[i].arabicEducationName, { onlySelf: true });
-
-              this.EditUserForm.controls.myArray.controls[i].controls.customerID.setValue(this.DetailCustomerModelList[i].customerID, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.name.setValue(this.DetailCustomerModelList[i].name, { onlySelf: true });
-              this.EditUserForm.controls.myArray.controls[i].controls.dob.setValue(this.DetailCustomerModelList[i].dob, { onlySelf: true });
-
             }
           }
         })
@@ -384,28 +362,28 @@ export class EditCustomerComponent implements OnInit {
                 this.myArray.push(this.createItem(x[0]));
 
                 let i: number = this.myArray.controls.length - 1;
-                //set defualt values
-                this.myArray.controls[i].controls.gender.setValue(x[0].gender, { onlySelf: true });
-                this.myArray.controls[i].controls.maritalStatus.setValue(x[0].maritalStatus, { onlySelf: true });
-                this.myArray.controls[i].controls.occupation.setValue(x[0].occupation, { onlySelf: true });
-                this.myArray.controls[i].controls.occupationDetails.setValue(x[0].occupationDetails, { onlySelf: true });
-                this.myArray.controls[i].controls.mobileNumber.setValue(x[0].mobileNumber, { onlySelf: true });
+                ////set defualt values
+                //this.myArray.controls[i].controls.gender.setValue(x[0].gender, { onlySelf: true });
+                //this.myArray.controls[i].controls.maritalStatus.setValue(x[0].maritalStatus, { onlySelf: true });
+                //this.myArray.controls[i].controls.occupation.setValue(x[0].occupation, { onlySelf: true });
+                //this.myArray.controls[i].controls.occupationDetails.setValue(x[0].occupationDetails, { onlySelf: true });
+                //this.myArray.controls[i].controls.mobileNumber.setValue(x[0].mobileNumber, { onlySelf: true });
 
 
-                this.myArray.controls[i].controls.area.setValue(x[0].area, { onlySelf: true });
-                this.myArray.controls[i].controls.city.setValue(x[0].city, { onlySelf: true });
+                //this.myArray.controls[i].controls.area.setValue(x[0].area, { onlySelf: true });
+                //this.myArray.controls[i].controls.city.setValue(x[0].city, { onlySelf: true });
 
 
-                this.myArray.controls[i].controls.state.setValue(x[0].state, { onlySelf: true });
+                //this.myArray.controls[i].controls.state.setValue(x[0].state, { onlySelf: true });
 
-                this.myArray.controls[i].controls.pin.setValue(x[0].pin, { onlySelf: true });
+                //this.myArray.controls[i].controls.pin.setValue(x[0].pin, { onlySelf: true });
 
-                this.myArray.controls[i].controls.educationName.setValue(x[0].educationName, { onlySelf: true });
-                this.myArray.controls[i].controls.arabicEducationName.setValue(x[0].arabicEducationName, { onlySelf: true });
+                //this.myArray.controls[i].controls.educationName.setValue(x[0].educationName, { onlySelf: true });
+                //this.myArray.controls[i].controls.arabicEducationName.setValue(x[0].arabicEducationName, { onlySelf: true });
 
-                this.myArray.controls[i].controls.customerID.setValue(x[0].customerID, { onlySelf: true });
-                this.myArray.controls[i].controls.name.setValue(x[0].name, { onlySelf: true });
-                this.myArray.controls[i].controls.dob.setValue(x[0].dob, { onlySelf: true });
+                //this.myArray.controls[i].controls.customerID.setValue(x[0].customerID, { onlySelf: true });
+                //this.myArray.controls[i].controls.name.setValue(x[0].name, { onlySelf: true });
+                //this.myArray.controls[i].controls.dob.setValue(x[0].dob, { onlySelf: true });
 
 
                 document.getElementById('SearchResult').innerText = 'User Found and listed below, Please click on save to add the newly listed dependent';

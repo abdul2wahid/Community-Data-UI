@@ -14,17 +14,25 @@ export class ViewCustomerComponent implements OnInit {
 
   BasicCustomersList: BasicCustomerModel[]
 
+  totalRecords: number = 10;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+
+
   constructor(private custService: CustomersService,
     private router: Router,
     private route: ActivatedRoute, ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.custService.getCustomers("Customer", "1", "1", "").subscribe(
-        data => {
-          this.BasicCustomersList = data;
-        })
-    }, 200);
+    //setTimeout(() => {
+    //  this.custService.getCustomers("Customer", "1", "1", "").subscribe(
+    //    data => {
+    //      this.BasicCustomersList = data['items'];
+    //      this.totalRecords = data['count'];
+    //      this.pageIndex = data['pageIndex'];
+    //     this.pageSize = data['pageSize'];
+    //    })
+    //}, 200);
 
   }
 
@@ -70,6 +78,30 @@ export class ViewCustomerComponent implements OnInit {
     close() {
       this.custID = "";
     document.getElementById('myModal').style.display = "none";
+    }
+
+  LoadRows(event: any) {
+   
+    //https://github.com/pritspatel/PrimeDatatableLazyLoad/blob/master/frontend/src/app/customer-list/customer-list.component.ts
+
+    //in a real application, make a remote request to load data using state metadata from event
+    //event.first = First row offset
+    //event.rows = Number of rows per page
+    //event.sortField = Field name to sort with
+    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+
+    //imitate db connection over a network
+    setTimeout(() => {
+      this.custService.getCustomers("Customer", "1", event.first +1, "").subscribe(
+        data => {
+          this.BasicCustomersList = data['items'];
+          this.totalRecords = data['count'];
+          this.pageIndex = data['pageIndex'];
+          this.pageSize = data['pageSize'];
+          this.pageSize = this.totalRecords / this.pageSize;
+        })
+    }, 200);
   }
 
 }

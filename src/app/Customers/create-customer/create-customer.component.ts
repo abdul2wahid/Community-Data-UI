@@ -160,8 +160,8 @@ export class CreateCustomerComponent implements OnInit {
 
 
     this.custService.CreateCustomer("Customer", this.DetailCustomerModel).subscribe(
-      data => {
-       if(data==true)
+      res => {
+       if(res['data']==true)
         this.router.navigate(['./customers']);
       })
   }

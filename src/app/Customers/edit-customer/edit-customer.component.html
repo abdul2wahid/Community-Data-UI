@@ -181,7 +181,7 @@
                             </td>
                             <td class="cellWidthForInput">
                               <select formControlName="gender">
-                                <option *ngFor="let c of genderList" >{{c.gender1}}</option>
+                                <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
                               </select>
 
                               <div *ngIf="(getEditFormControls.controls[index].controls.gender.dirty || getEditFormControls.controls[index].controls.gender.touched)
@@ -201,7 +201,7 @@
                             </td>
                             <td class="cellWidthForInput">
                               <select formControlName="maritalStatus">
-                                <option *ngFor="let c of marriageList" >{{c.maritalStatus1}}</option>
+                                <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
                               </select>
                               <div *ngIf="(getEditFormControls.controls[index].controls.maritalStatus.dirty || getEditFormControls.controls[index].controls.maritalStatus.touched)
                                    && getEditFormControls.controls[index].controls.maritalStatus.invalid && getEditFormControls.controls[index].controls.maritalStatus.errors.required" class="text-danger">
@@ -219,7 +219,7 @@
                             </td>
                             <td class="cellWidthForInput">
                               <select formControlName="occupation">
-                                <option *ngFor="let c of occupationList">{{c.occuptionName}}</option>
+                                <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
                               </select>
 
 
@@ -333,7 +333,7 @@
                               </td>
                               <td class="cellWidthForInput">
                                 <select formControlName="city">
-                                  <option *ngFor="let c of cityList" >{{c.city1}}</option>
+                                  <option *ngFor="let c of cityList"  [ngValue]="c.city1" >{{c.city1}}</option>
                                 </select>
                                 <div *ngIf="(getEditFormControls.controls[index].controls.city.dirty || getEditFormControls.controls[index].controls.city.touched)
                                    && getEditFormControls.controls[index].controls.city.invalid && getEditFormControls.controls[index].controls.city.errors.required" class="text-danger">
@@ -352,7 +352,7 @@
                               </td>
                               <td class="cellWidthForInput">
                                 <select formControlName="state">
-                                  <option *ngFor="let c of statesList" >{{c.state}}</option>
+                                  <option *ngFor="let c of statesList"  [ngValue]="c.state" >{{c.state}}</option>
                                 </select>
                                 <div *ngIf="(getEditFormControls.controls[index].controls.state.dirty || getEditFormControls.controls[index].controls.state.touched)
                                    && getEditFormControls.controls[index].controls.state.invalid && getEditFormControls.controls[index].controls.state.errors.required" class="text-danger">
@@ -370,7 +370,7 @@
                               </td>
                               <td class="cellWidthForInput">
                                 <select formControlName="pin">
-                                  <option *ngFor="let c of pinList">{{c.pin}}</option>
+                                  <option *ngFor="let c of pinList"  [ngValue]="c.pin">{{c.pin}}</option>
                                 </select>
 
                                 <div *ngIf="(getEditFormControls.controls[index].controls.pin.dirty || getEditFormControls.controls[index].controls.pin.touched)
@@ -405,7 +405,7 @@
                               </td>
                               <td class="cellWidthForInput">
                                 <select formControlName="educationName">
-                                  <option *ngFor="let c of educationList" >{{c.educationName}}</option>
+                                  <option *ngFor="let c of educationList" [ngValue]="c.educationName" >{{c.educationName}}</option>
                                 </select>
                                 <div *ngIf="(getEditFormControls.controls[index].controls.educationName.dirty || getEditFormControls.controls[index].controls.educationName.touched)
                                    && getEditFormControls.controls[index].controls.educationName.invalid && getEditFormControls.controls[index].controls.educationName.errors.required" class="text-danger">
@@ -425,7 +425,7 @@
                               </td>
                               <td class="cellWidthForInput">
                                 <select formControlName="arabicEducationName">
-                                  <option *ngFor="let c of arabicEducationList" >{{c.arabicEducationName}}</option>
+                                  <option *ngFor="let c of arabicEducationList" [ngValue]="c.arabicEducationName" >{{c.arabicEducationName}}</option>
                                 </select>
                                 <div *ngIf="(getEditFormControls.controls[index].controls.arabicEducationName.dirty || getEditFormControls.controls[index].controls.arabicEducationName.touched)
                                    && getEditFormControls.controls[index].controls.arabicEducationName.invalid && getEditFormControls.controls[index].controls.arabicEducationName.errors.required" class="text-danger">
