@@ -84,7 +84,7 @@ export class CustomersService {
     const options = { headers: headers };
 
 
-  return this._http.put<boolean>(AppSettings.API_ENDPOINT + url, cust, this.httpOptions)
+    return this._http.put(AppSettings.API_ENDPOINT + url, cust, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );

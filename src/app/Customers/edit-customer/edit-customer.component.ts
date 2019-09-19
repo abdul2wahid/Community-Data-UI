@@ -16,6 +16,7 @@ import { ArabicEducationModel } from 'src/app/AppModel/ArabicEducationModel';
 import { isNullOrUndefined, debug } from 'util';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-detailcustomer',
@@ -218,9 +219,9 @@ export class EditCustomerComponent implements OnInit {
 
     this.UpdateListItems();
  
-    this.custService.updateCustomer("Customer/Update", this.EditUserForm.controls.myArray.getRawValue()).subscribe(
+    this.custService.updateCustomer("Customer/Update", this.myArray.getRawValue()).subscribe(
       data => {
-        if (data == true) {
+        if (data.toString()== "true") {
           this.router.navigate(['./customers']);
         }
       })
@@ -232,52 +233,50 @@ export class EditCustomerComponent implements OnInit {
 
 
   UpdateListItems() {
-    for (let i = 0; i < this.EditUserForm.controls.myArray.controls.length; i++) {
+    for (let i = 0; i < this.myArray.controls.length; i++) {
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.educationName))
-        this.EditUserForm.controls.myArray.controls[i].controls.educationId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('educationName')))
+        this.myArray.controls[i].get('educationId').setValue(0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.educationId.value = this.educationList.find(x => x.educationName == this.EditUserForm.controls.myArray.controls[i].controls.educationName.value).educationId;
+        this.myArray.controls[i].get('educationId').setValue(this.educationList.find(x => x.educationName == this.myArray.controls[i].get('educationName').value).educationId);
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName))
-        this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationID.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('arabicEducationName')))
+        this.myArray.controls[i].get('arabicEducationID').setValue( 0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationID.value = this.arabicEducationList.find(x => x.arabicEducationName == this.EditUserForm.controls.myArray.controls[i].controls.arabicEducationName.value).arabicEducationId;
+        this.myArray.controls[i].get('arabicEducationID').setValue( this.arabicEducationList.find(x => x.arabicEducationName == this.myArray.controls[i].get('arabicEducationName').value).arabicEducationId);
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.occupation))
-        this.EditUserForm.controls.myArray.controls[i].controls.occupationId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('occupation')))
+        this.myArray.controls[i].get('occupationId').setValue(0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.occupationId.value = this.occupationList.find(x => x.occuptionName == this.EditUserForm.controls.myArray.controls[i].controls.occupation.value).occupationId;
+        this.myArray.controls[i].get('occupationId').setValue( this.occupationList.find(x => x.occuptionName == this.myArray.controls[i].get('occupation').value).occupationId);
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus))
-        this.EditUserForm.controls.myArray.controls[i].controls.maritalStatusId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('maritalStatus')))
+        this.myArray.controls[i].get('maritalStatusId').setValue( 0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.maritalStatusId.value = this.marriageList.find(x => x.maritalStatus1 == this.EditUserForm.controls.myArray.controls[i].controls.maritalStatus.value).maritalStatusId;
+        this.myArray.controls[i].get('maritalStatusId').setValue( this.marriageList.find(x => x.maritalStatus1 == this.myArray.controls[i].get('maritalStatus').value).maritalStatusId);
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.gender))
-        this.EditUserForm.controls.myArray.controls[i].controls.genderId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('gender')))
+        this.myArray.controls[i].get('genderId').setValue( 0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.genderId.value = this.genderList.find(x => x.gender1 == this.EditUserForm.controls.myArray.controls[i].controls.gender.value).genderId;
+        this.myArray.controls[i].get('genderId').setValue( this.genderList.find(x => x.gender1 == this.myArray.controls[i].get('gender').value).genderId);
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.city))
-        this.EditUserForm.controls.myArray.controls[i].controls.cityId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('city')))
+        this.myArray.controls[i].get('cityId').setValue( 0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.cityId.value = this.cityList.find(x => x.city1 == this.EditUserForm.controls.myArray.controls[i].controls.city.value).cityId;
+        this.myArray.controls[i].get('cityId').setValue( this.cityList.find(x => x.city1 == this.myArray.controls[i].get('city').value).cityId);
 
 
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.pin))
-        this.EditUserForm.controls.myArray.controls[i].controls.pinId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('pin')))
+        this.myArray.controls[i].get('pinId').setValue( 0);
       else
-        this.EditUserForm.controls.myArray.controls[i].controls.pinId.value = this.pinList.find(x => x.pin == this.EditUserForm.controls.myArray.controls[i].controls.pin.value).pinId;
+        this.myArray.controls[i].get('pinId').setValue( this.pinList.find(x => x.pin == this.myArray.controls[i].get('pin').value).pinId);
 
-      //let newDate = new Date(this.EditUserForm.controls.myArray.controls[i].controls.dob.value);
-      //this.EditUserForm.controls.myArray.controls[i].controls.dob.value = this.datePipe.transform(newDate, 'dd-mm-yyyy');
 
-      if (isNullOrUndefined(this.EditUserForm.controls.myArray.controls[i].controls.state))
-        this.EditUserForm.controls.myArray.controls[i].controls.stateId.value = 0;
+      if (isNullOrUndefined(this.myArray.controls[i].get('state')))
+        this.myArray.controls[i].get('stateId').setValue( 0);
       else {
-        this.EditUserForm.controls.myArray.controls[i].controls.stateId.value = this.statesList.find(x => x.state == this.EditUserForm.controls.myArray.controls[i].controls.state.value).stateId;
+        this.myArray.controls[i].get('stateId').setValue( this.statesList.find(x => x.state == this.myArray.controls[i].get('state').value).stateId);
       }
     }
 
@@ -297,9 +296,9 @@ export class EditCustomerComponent implements OnInit {
 
     for (let currentItem of this.myArray.controls) {
 
-      if (currentItem.controls.customerID.value == item.controls.customerID.value) {
+      if (currentItem.get('customerID').value == item.customerID.value) {
 
-        currentItem.controls.dependantToBeDeleted.value = true;
+        currentItem.get('dependantToBeDeleted').setValue(true);
       }
     }
  
@@ -343,8 +342,8 @@ export class EditCustomerComponent implements OnInit {
 
                 for (let item of this.myArray.controls) {
                 
-                  if (item.controls.wifeId.value == null && item.controls.childrenId.value == null) {
-                    x[0].dependantParentID = item.controls.customerID.value;
+                  if (item.get('wifeId').value == null && item.get('childrenId').value == null) {
+                    x[0].dependantParentID = item.get('customerID').value;
                     break;
                   }
                 }
@@ -362,29 +361,7 @@ export class EditCustomerComponent implements OnInit {
                 this.myArray.push(this.createItem(x[0]));
 
                 let i: number = this.myArray.controls.length - 1;
-                ////set defualt values
-                //this.myArray.controls[i].controls.gender.setValue(x[0].gender, { onlySelf: true });
-                //this.myArray.controls[i].controls.maritalStatus.setValue(x[0].maritalStatus, { onlySelf: true });
-                //this.myArray.controls[i].controls.occupation.setValue(x[0].occupation, { onlySelf: true });
-                //this.myArray.controls[i].controls.occupationDetails.setValue(x[0].occupationDetails, { onlySelf: true });
-                //this.myArray.controls[i].controls.mobileNumber.setValue(x[0].mobileNumber, { onlySelf: true });
-
-
-                //this.myArray.controls[i].controls.area.setValue(x[0].area, { onlySelf: true });
-                //this.myArray.controls[i].controls.city.setValue(x[0].city, { onlySelf: true });
-
-
-                //this.myArray.controls[i].controls.state.setValue(x[0].state, { onlySelf: true });
-
-                //this.myArray.controls[i].controls.pin.setValue(x[0].pin, { onlySelf: true });
-
-                //this.myArray.controls[i].controls.educationName.setValue(x[0].educationName, { onlySelf: true });
-                //this.myArray.controls[i].controls.arabicEducationName.setValue(x[0].arabicEducationName, { onlySelf: true });
-
-                //this.myArray.controls[i].controls.customerID.setValue(x[0].customerID, { onlySelf: true });
-                //this.myArray.controls[i].controls.name.setValue(x[0].name, { onlySelf: true });
-                //this.myArray.controls[i].controls.dob.setValue(x[0].dob, { onlySelf: true });
-
+       
 
                 document.getElementById('SearchResult').innerText = 'User Found and listed below, Please click on save to add the newly listed dependent';
               }
