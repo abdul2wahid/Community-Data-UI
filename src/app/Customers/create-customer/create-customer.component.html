@@ -1,16 +1,15 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-2">
+    <div class="col-1"></div>
 
-    </div>
-    <div class="col-xs-8">
+    <div class="col-10">
 
       <!--Save button-->
       <div class="row">
-        <div class="col-xs-9">
+        <div class="col-9">
         </div>
-        <div class="col-xs-3">
+        <div class="col-3">
           <input type="button" class="btn btn-primary" value="Cancel" class="btn btn-primary" (click)="CancelEvent()" />
           <input type="button" class="btn btn-primary" value="Save" class="btn btn-primary" (click)="SaveEvent()" style="margin-left:5px;" />
         </div>
@@ -19,25 +18,25 @@
 
 
       <!--Create Customer-->
-      <div class="row  panel panel-default">
+      <div class="row  card">
 
-        <div class="panel-heading">
+        <div class="card-header">
 
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
 
           <!--Basic info panel-->
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Basic Info</div>
-            <div class="panel-body row">
-              <div class="col-xs-2">
+          <div class="card">
+            <div class="card-header">Basic Info</div>
+            <div class="card-body">
+              <div class="col-2">
 
 
               </div>
-              <div class="col-xs-8"  >
-                
+              <div class="col-8">
+
                 <table [formGroup]="CreateUserForm">
 
 
@@ -46,7 +45,7 @@
                       <label>Customer Name *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text"  formControlName="Name" />
+                      <input type="text" formControlName="Name" />
 
                       <div *ngIf="(getControls.Name.dirty || getControls.Name.touched) && getControls.Name.invalid && getControls.Name.errors.required" class="text-danger">
                         <div *ngIf="getControls.Name.errors.required">
@@ -63,7 +62,7 @@
                     </td>
                     <td class="cellWidthForInput">
                       <!--<input type="text" [(ngModel)]="DetailCustomerModel.age" formControlName="DOB" />-->
-                      <p-calendar  showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" formControlName="DOB"></p-calendar>
+                      <p-calendar showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" formControlName="DOB"></p-calendar>
 
                       <div *ngIf="(getControls.DOB.dirty || getControls.DOB.touched) && getControls.DOB.invalid && getControls.DOB.errors.required" class="text-danger">
                         <div *ngIf="getControls.DOB.errors.required">
@@ -78,7 +77,7 @@
                       <label>Gender *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select  formControlName="gender">
+                      <select formControlName="gender">
                         <option *ngFor="let c of genderList" [value]="c.gender1">{{c.gender1}}</option>
                       </select>
 
@@ -96,7 +95,7 @@
                       <label>Marriage Status *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select  formControlName="maritalStatus">
+                      <select formControlName="maritalStatus">
                         <option *ngFor="let c of marriageList" [value]="c.maritalStatus1">{{c.maritalStatus1}}</option>
                       </select>
 
@@ -113,7 +112,7 @@
                       <label>Occupation *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <select  formControlName="occupation">
+                      <select formControlName="occupation">
                         <option *ngFor="let c of occupationList" [value]="c.occuptionName">{{c.occuptionName}}</option>
                       </select>
                       <div *ngIf="(getControls.occupation.dirty || getControls.occupation.touched) && getControls.occupation.invalid && getControls.occupation.errors.required" class="text-danger">
@@ -130,7 +129,7 @@
                       <label>Occupation Details *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text"  formControlName="occupationDetails" />
+                      <input type="text" formControlName="occupationDetails" />
 
                       <div *ngIf="(getControls.occupationDetails.dirty || getControls.occupationDetails.touched) && getControls.occupationDetails.invalid && getControls.occupationDetails.errors.required" class="text-danger">
                         <div *ngIf="getControls.occupationDetails.errors.required">
@@ -148,7 +147,7 @@
                       <label>Mobile Number *</label>
                     </td>
                     <td class="cellWidthForInput">
-                      <input type="text"  formControlName="mobileNumber" />
+                      <input type="text" formControlName="mobileNumber" />
 
                       <div *ngIf="(getControls.mobileNumber.dirty || getControls.mobileNumber.touched) && getControls.mobileNumber.invalid && getControls.mobileNumber.errors.required" class="text-danger">
                         <div *ngIf="getControls.mobileNumber.errors.required">
@@ -162,7 +161,7 @@
                   <br />
                 </table>
               </div>
-              <div class="col-xs-2">
+              <div class="col-2">
 
               </div>
             </div>
@@ -170,21 +169,21 @@
 
           <!--address panel-->
           <div class="row">
-            <div class="col-xs-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">Address Info</div>
-                <div class="panel-body ">
+            <div class="col-6">
+              <div class="card mt-2">
+                <div class="card-header">Address Info</div>
+                <div class="card-body ">
 
 
 
-                  <table  [formGroup]="CreateUserForm">
+                  <table [formGroup]="CreateUserForm">
 
                     <tr>
                       <td class="cellWidthForLabel">
                         <label>Address </label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text"  />
+                        <input type="text" />
                       </td>
                     </tr>
                     <br />
@@ -194,7 +193,7 @@
                         <label>Street/Landmark Details</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <input type="text"  />
+                        <input type="text" />
                       </td>
                     </tr>
                     <br />
@@ -207,11 +206,11 @@
                       <td class="cellWidthForInput">
                         <input type="text" formControlName="area" />
 
-                      <div *ngIf="(getControls.area.dirty || getControls.area.touched) && getControls.area.invalid && getControls.area.errors.required" class="text-danger">
-                        <div *ngIf="getControls.area.errors.required">
-                          Area required.
+                        <div *ngIf="(getControls.area.dirty || getControls.area.touched) && getControls.area.invalid && getControls.area.errors.required" class="text-danger">
+                          <div *ngIf="getControls.area.errors.required">
+                            Area required.
+                          </div>
                         </div>
-                      </div>
 
                       </td>
                     </tr>
@@ -222,12 +221,12 @@
                         <label>City *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select  formControlName="city" >
+                        <select formControlName="city">
                           <option *ngFor="let c of cityList" [value]="c.city1">{{c.city1}}</option>
                         </select>
                         <div *ngIf="(getControls.city.dirty || getControls.city.touched) && getControls.city.invalid && getControls.city.errors.required" class="text-danger">
                           <div *ngIf="getControls.city.errors.required">
-                           City required.
+                            City required.
                           </div>
                         </div>
                       </td>
@@ -240,7 +239,7 @@
                         <label>State *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select formControlName="state" >
+                        <select formControlName="state">
                           <option *ngFor="let c of statesList" [value]="c.state">{{c.state}}</option>
                         </select>
                         <div *ngIf="(getControls.state.dirty || getControls.state.touched) && getControls.state.invalid && getControls.state.errors.required" class="text-danger">
@@ -257,7 +256,7 @@
                         <label>Pin *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select  formControlName="pin" >
+                        <select formControlName="pin">
                           <option *ngFor="let c of pinList" [value]="c.pin">{{c.pin}}</option>
                         </select>
                         <div *ngIf="(getControls.pin.dirty || getControls.pin.touched) && getControls.pin.invalid && getControls.pin.errors.required" class="text-danger">
@@ -276,10 +275,10 @@
 
             <!--Education Panel-->
 
-            <div class="col-xs-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">Education Info</div>
-                <div class="panel-body ">
+            <div class="col-6">
+              <div class="card mt-2">
+                <div class="card-header">Education Info</div>
+                <div class="card-body ">
 
 
                   <table [formGroup]="CreateUserForm">
@@ -289,7 +288,7 @@
                         <label>Education *</label>
                       </td>
                       <td class="cellWidthForInput">
-                        <select  formControlName="educationName">
+                        <select formControlName="educationName">
                           <option *ngFor="let c of educationList" [value]="c.educationName">{{c.educationName}}</option>
                         </select>
                         <div *ngIf="(getControls.educationName.dirty || getControls.educationName.touched) && getControls.educationName.invalid && getControls.educationName.errors.required" class="text-danger">
@@ -339,9 +338,7 @@
     </div>
 
 
-    <div class="col-xs-2">
-
-    </div>
+    <div class="col-1"></div>
   </div>
 </div>
 

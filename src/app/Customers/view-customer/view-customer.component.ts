@@ -3,7 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { CustomersService } from '../Customers.service'
 import { BasicCustomerModel } from '../Models/BasicCustomerModel';
-
+import { GenderModel } from 'src/app/AppModel/GenderModel';
+import { MarriageModel } from 'src/app/AppModel/MarriageModel';
+import { OccupationModel } from 'src/app/AppModel/OccupationModel';
+import { AppService } from '../../app.service'
 @Component({
   selector: 'app-view-customer',
   templateUrl: './view-customer.component.html',
@@ -18,10 +21,15 @@ export class ViewCustomerComponent implements OnInit {
   pageIndex: number = 1;
   pageSize: number = 10;
 
+  genderList: GenderModel[];
+  marriageList: MarriageModel[];
+  occupationList: OccupationModel[];
+
 
   constructor(private custService: CustomersService,
     private router: Router,
-    private route: ActivatedRoute, ) { }
+    private route: ActivatedRoute,
+    private appService: AppService, ) { }
 
   ngOnInit() {
     //setTimeout(() => {
@@ -33,6 +41,22 @@ export class ViewCustomerComponent implements OnInit {
     //     this.pageSize = data['pageSize'];
     //    })
     //}, 200);
+    this.appService.getGender().subscribe(
+      data => {
+        this.genderList = data;
+      });
+
+
+    this.appService.getMarriage().subscribe(
+      data => {
+        this.marriageList = data;
+      });
+
+
+    this.appService.getOccupation().subscribe(
+      data => {
+        this.occupationList = data;
+      });
 
   }
 

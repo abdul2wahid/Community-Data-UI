@@ -103,357 +103,358 @@
         <div [formGroup]="EditUserForm">
           <div formArrayName="myArray">
             <!--Customer List-->
-            <div class="row  card" *ngFor="let item of EditUserForm.get('myArray').controls; let index=index" [formGroupName]="index">
-
-              <div *ngIf="item.controls.dependantToBeDeleted.value==null || item.controls.dependantToBeDeleted.value==false">
-                <div class="card-header">
-                  <div class="row">
-                    <div class="col-10">
-                      {{item.controls.name.value}}
-                    </div>
-                    <div class="col-2">
-
-                      <div *ngIf="item.controls.dependantParentID.value == -1;else other_content">
-
-                        <p-button icon="pi pi-plus" class="ui-button-icon" (onClick)="AddDependent(item)">
-                        </p-button>
+            <div class="row  "  *ngFor="let item of EditUserForm.get('myArray').controls; let index=index" [formGroupName]="index">
+              <div class="card mt-3">
+                <div *ngIf="item.controls.dependantToBeDeleted.value==null || item.controls.dependantToBeDeleted.value==false">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-10">
+                        {{item.controls.name.value}}
                       </div>
-                      <ng-template #other_content>
-                        <p-button icon="pi pi-minus" class="ui-button-icon" (onClick)="DeleteDependent(item)">
-                        </p-button>
-                      </ng-template>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="card-body">
-
-                  <!--Basic info panel-->
-
-                  <div class="card ">
-                    <div class="card-header">Basic Info</div>
-                    <div class="card-block">
                       <div class="col-2">
 
+                        <div *ngIf="item.controls.dependantParentID.value == -1;else other_content">
 
+                          <p-button icon="pi pi-plus" class="ui-button-icon" (onClick)="AddDependent(item)">
+                          </p-button>
+                        </div>
+                        <ng-template #other_content>
+                          <p-button icon="pi pi-minus" class="ui-button-icon" (onClick)="DeleteDependent(item)">
+                          </p-button>
+                        </ng-template>
                       </div>
-                      <div class="col-8">
+                    </div>
 
-                        <table>
+                  </div>
 
-                          <input type="hidden" formControlName="customerID" disabled />
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Customer Name *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <input type="text" formControlName="name" disabled />
+                  <div class="card-body">
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.name.dirty || getEditFormControls.controls[index].controls.name.touched)
+                    <!--Basic info panel-->
+
+                    <div class="card">
+                      <div class="card-header">Basic Info</div>
+                      <div class="card-block">
+                        <div class="col-2">
+
+
+                        </div>
+                        <div class="col-8">
+
+                          <table>
+
+                            <input type="hidden" formControlName="customerID" disabled />
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Customer Name *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <input type="text" formControlName="name" disabled />
+
+                                <div *ngIf="(getEditFormControls.controls[index].controls.name.dirty || getEditFormControls.controls[index].controls.name.touched)
                                    && getEditFormControls.controls[index].controls.name.invalid && getEditFormControls.controls[index].controls.name.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.name.errors.required">
-                                  Name required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.name.errors.required">
+                                    Name required.
+                                  </div>
                                 </div>
-                              </div>
 
 
-                            </td>
-                          </tr>
-                          <br />
+                              </td>
+                            </tr>
+                            <br />
 
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>DOB *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <input type="text" formControlName="dob" disabled />
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>DOB *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <input type="text" formControlName="dob" disabled />
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.dob.dirty || getEditFormControls.controls[index].controls.dob.touched)
+                                <div *ngIf="(getEditFormControls.controls[index].controls.dob.dirty || getEditFormControls.controls[index].controls.dob.touched)
                                    && getEditFormControls.controls[index].controls.dob.invalid && getEditFormControls.controls[index].controls.dob.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.dob.errors.required">
-                                  DOB required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.dob.errors.required">
+                                    DOB required.
+                                  </div>
                                 </div>
-                              </div>
 
-                            </td>
-                          </tr>
-                          <br />
+                              </td>
+                            </tr>
+                            <br />
 
 
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Gender *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <select formControlName="gender">
-                                <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
-                              </select>
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Gender *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <select formControlName="gender">
+                                  <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
+                                </select>
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.gender.dirty || getEditFormControls.controls[index].controls.gender.touched)
+                                <div *ngIf="(getEditFormControls.controls[index].controls.gender.dirty || getEditFormControls.controls[index].controls.gender.touched)
                                    && getEditFormControls.controls[index].controls.gender.invalid && getEditFormControls.controls[index].controls.gender.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.gender.errors.required">
-                                  Gender required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.gender.errors.required">
+                                    Gender required.
+                                  </div>
                                 </div>
-                              </div>
 
-                            </td>
-                          </tr>
-                          <br />
+                              </td>
+                            </tr>
+                            <br />
 
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Marrige Status *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <select formControlName="maritalStatus">
-                                <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
-                              </select>
-                              <div *ngIf="(getEditFormControls.controls[index].controls.maritalStatus.dirty || getEditFormControls.controls[index].controls.maritalStatus.touched)
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Marrige Status *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <select formControlName="maritalStatus">
+                                  <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
+                                </select>
+                                <div *ngIf="(getEditFormControls.controls[index].controls.maritalStatus.dirty || getEditFormControls.controls[index].controls.maritalStatus.touched)
                                    && getEditFormControls.controls[index].controls.maritalStatus.invalid && getEditFormControls.controls[index].controls.maritalStatus.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.maritalStatus.errors.required">
-                                  Marital Status required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.maritalStatus.errors.required">
+                                    Marital Status required.
+                                  </div>
                                 </div>
-                              </div>
 
-                            </td>
-                          </tr>
-                          <br />
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Occupation *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <select formControlName="occupation">
-                                <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
-                              </select>
+                              </td>
+                            </tr>
+                            <br />
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Occupation *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <select formControlName="occupation">
+                                  <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
+                                </select>
 
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.occupation.dirty || getEditFormControls.controls[index].controls.occupation.touched)
+                                <div *ngIf="(getEditFormControls.controls[index].controls.occupation.dirty || getEditFormControls.controls[index].controls.occupation.touched)
                                    && getEditFormControls.controls[index].controls.occupation.invalid && getEditFormControls.controls[index].controls.occupation.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.occupation.errors.required">
-                                  Occupation required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.occupation.errors.required">
+                                    Occupation required.
+                                  </div>
                                 </div>
-                              </div>
 
-                            </td>
-                          </tr>
-                          <br />
+                              </td>
+                            </tr>
+                            <br />
 
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Occupation Details *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <input type="text" [value]="DetailCustomerModelList[index].occupationDetails" formControlName="occupationDetails" />
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Occupation Details *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <input type="text" [value]="DetailCustomerModelList[index].occupationDetails" formControlName="occupationDetails" />
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.occupationDetails.dirty || getEditFormControls.controls[index].controls.occupationDetails.touched)
+                                <div *ngIf="(getEditFormControls.controls[index].controls.occupationDetails.dirty || getEditFormControls.controls[index].controls.occupationDetails.touched)
                                    && getEditFormControls.controls[index].controls.occupationDetails.invalid && getEditFormControls.controls[index].controls.occupationDetails.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.occupationDetails.errors.required">
-                                  Occupation Details required.
+                                  <div *ngIf="getEditFormControls.controls[index].controls.occupationDetails.errors.required">
+                                    Occupation Details required.
+                                  </div>
                                 </div>
-                              </div>
 
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
 
-                          <br />
+                            <br />
 
-                          <tr>
-                            <td class="cellWidthForLabel">
-                              <label>Mobile Number *</label>
-                            </td>
-                            <td class="cellWidthForInput">
-                              <input type="text" formControlName="mobileNumber" />
-
+                            <tr>
+                              <td class="cellWidthForLabel">
+                                <label>Mobile Number *</label>
+                              </td>
+                              <td class="cellWidthForInput">
+                                <input type="text" formControlName="mobileNumber" />
 
 
-                              <div *ngIf="(getEditFormControls.controls[index].controls.mobileNumber.dirty || getEditFormControls.controls[index].controls.mobileNumber.touched) && getEditFormControls.controls[index].controls.mobileNumber.invalid && getEditFormControls.controls[index].controls.mobileNumber.errors.required" class="text-danger">
-                                <div *ngIf="getEditFormControls.controls[index].controls.mobileNumber.errors.required">
-                                  Mobile Number required.
+
+                                <div *ngIf="(getEditFormControls.controls[index].controls.mobileNumber.dirty || getEditFormControls.controls[index].controls.mobileNumber.touched) && getEditFormControls.controls[index].controls.mobileNumber.invalid && getEditFormControls.controls[index].controls.mobileNumber.errors.required" class="text-danger">
+                                  <div *ngIf="getEditFormControls.controls[index].controls.mobileNumber.errors.required">
+                                    Mobile Number required.
+                                  </div>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
 
-                        </table>
-                      </div>
-                      <div class="col-2">
+                          </table>
+                        </div>
+                        <div class="col-2">
 
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!--address panel-->
-                  <div class="row">
-                   
-                    <div class="col-6">
-                      <div class="card">
-                        <div class="card-header">Address Info</div>
-                        <div class="card-block">
+                    <!--address panel-->
+                    <div class="row">
 
-                          <table>
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Address </label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <input type="text" />
-                              </td>
-                            </tr>
-                            <br />
+                      <div class="col-6">
+                        <div class="card mt-2">
+                          <div class="card-header">Address Info</div>
+                          <div class="card-block">
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Street/Landmark Details</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <input type="text" />
-                              </td>
-                            </tr>
-                            <br />
+                            <table>
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Address </label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <input type="text" />
+                                </td>
+                              </tr>
+                              <br />
+
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Street/Landmark Details</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <input type="text" />
+                                </td>
+                              </tr>
+                              <br />
 
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Area *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <input type="text" [value]="DetailCustomerModelList[index].area" formControlName="area" />
-                                <div *ngIf="(getEditFormControls.controls[index].controls.area.dirty || getEditFormControls.controls[index].controls.area.touched)
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Area *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <input type="text" [value]="DetailCustomerModelList[index].area" formControlName="area" />
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.area.dirty || getEditFormControls.controls[index].controls.area.touched)
                                    && getEditFormControls.controls[index].controls.area.invalid && getEditFormControls.controls[index].controls.area.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.area.errors.required">
-                                    Area required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.area.errors.required">
+                                      Area required.
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <br />
+                                </td>
+                              </tr>
+                              <br />
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>City *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <select formControlName="city">
-                                  <option *ngFor="let c of cityList" [ngValue]="c.city1">{{c.city1}}</option>
-                                </select>
-                                <div *ngIf="(getEditFormControls.controls[index].controls.city.dirty || getEditFormControls.controls[index].controls.city.touched)
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>City *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <select formControlName="city">
+                                    <option *ngFor="let c of cityList" [ngValue]="c.city1">{{c.city1}}</option>
+                                  </select>
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.city.dirty || getEditFormControls.controls[index].controls.city.touched)
                                    && getEditFormControls.controls[index].controls.city.invalid && getEditFormControls.controls[index].controls.city.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.city.errors.required">
-                                    City required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.city.errors.required">
+                                      City required.
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <br />
+                                </td>
+                              </tr>
+                              <br />
 
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>State *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <select formControlName="state">
-                                  <option *ngFor="let c of statesList" [ngValue]="c.state">{{c.state}}</option>
-                                </select>
-                                <div *ngIf="(getEditFormControls.controls[index].controls.state.dirty || getEditFormControls.controls[index].controls.state.touched)
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>State *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <select formControlName="state">
+                                    <option *ngFor="let c of statesList" [ngValue]="c.state">{{c.state}}</option>
+                                  </select>
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.state.dirty || getEditFormControls.controls[index].controls.state.touched)
                                    && getEditFormControls.controls[index].controls.state.invalid && getEditFormControls.controls[index].controls.state.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.state.errors.required">
-                                    State required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.state.errors.required">
+                                      State required.
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <br />
+                                </td>
+                              </tr>
+                              <br />
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Pin *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <select formControlName="pin">
-                                  <option *ngFor="let c of pinList" [ngValue]="c.pin">{{c.pin}}</option>
-                                </select>
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Pin *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <select formControlName="pin">
+                                    <option *ngFor="let c of pinList" [ngValue]="c.pin">{{c.pin}}</option>
+                                  </select>
 
-                                <div *ngIf="(getEditFormControls.controls[index].controls.pin.dirty || getEditFormControls.controls[index].controls.pin.touched)
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.pin.dirty || getEditFormControls.controls[index].controls.pin.touched)
                                    && getEditFormControls.controls[index].controls.pin.invalid && getEditFormControls.controls[index].controls.pin.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.pin.errors.required">
-                                    Pin required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.pin.errors.required">
+                                      Pin required.
+                                    </div>
                                   </div>
-                                </div>
 
-                              </td>
-                            </tr>
-                            <br />
-                          </table>
+                                </td>
+                              </tr>
+                              <br />
+                            </table>
 
+                          </div>
                         </div>
                       </div>
-                    </div>
 
 
-                    <!--Education Panel-->
-                    <div class="col-6">
-                      <div class="card">
-                        <div class="card-header">Education Info</div>
-                        <div class="card-block">
+                      <!--Education Panel-->
+                      <div class="col-6">
+                        <div class="card mt-2">
+                          <div class="card-header">Education Info</div>
+                          <div class="card-block">
 
 
-                          <table>
+                            <table>
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Education *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <select formControlName="educationName">
-                                  <option *ngFor="let c of educationList" [ngValue]="c.educationName">{{c.educationName}}</option>
-                                </select>
-                                <div *ngIf="(getEditFormControls.controls[index].controls.educationName.dirty || getEditFormControls.controls[index].controls.educationName.touched)
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Education *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <select formControlName="educationName">
+                                    <option *ngFor="let c of educationList" [ngValue]="c.educationName">{{c.educationName}}</option>
+                                  </select>
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.educationName.dirty || getEditFormControls.controls[index].controls.educationName.touched)
                                    && getEditFormControls.controls[index].controls.educationName.invalid && getEditFormControls.controls[index].controls.educationName.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.educationName.errors.required">
-                                    Education Name required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.educationName.errors.required">
+                                      Education Name required.
+                                    </div>
                                   </div>
-                                </div>
 
 
-                              </td>
-                            </tr>
-                            <br />
+                                </td>
+                              </tr>
+                              <br />
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Arabic Education *</label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <select formControlName="arabicEducationName">
-                                  <option *ngFor="let c of arabicEducationList" [ngValue]="c.arabicEducationName">{{c.arabicEducationName}}</option>
-                                </select>
-                                <div *ngIf="(getEditFormControls.controls[index].controls.arabicEducationName.dirty || getEditFormControls.controls[index].controls.arabicEducationName.touched)
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Arabic Education *</label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <select formControlName="arabicEducationName">
+                                    <option *ngFor="let c of arabicEducationList" [ngValue]="c.arabicEducationName">{{c.arabicEducationName}}</option>
+                                  </select>
+                                  <div *ngIf="(getEditFormControls.controls[index].controls.arabicEducationName.dirty || getEditFormControls.controls[index].controls.arabicEducationName.touched)
                                    && getEditFormControls.controls[index].controls.arabicEducationName.invalid && getEditFormControls.controls[index].controls.arabicEducationName.errors.required" class="text-danger">
-                                  <div *ngIf="getEditFormControls.controls[index].controls.arabicEducationName.errors.required">
-                                    Arabic Education Name required.
+                                    <div *ngIf="getEditFormControls.controls[index].controls.arabicEducationName.errors.required">
+                                      Arabic Education Name required.
+                                    </div>
                                   </div>
-                                </div>
 
-                              </td>
-                            </tr>
-                            <br />
+                                </td>
+                              </tr>
+                              <br />
 
-                            <tr>
-                              <td class="cellWidthForLabel">
-                                <label>Eduction Details </label>
-                              </td>
-                              <td class="cellWidthForInput">
-                                <input type="text" />
-                              </td>
-                            </tr>
-                            <br />
+                              <tr>
+                                <td class="cellWidthForLabel">
+                                  <label>Eduction Details </label>
+                                </td>
+                                <td class="cellWidthForInput">
+                                  <input type="text" />
+                                </td>
+                              </tr>
+                              <br />
 
-                          </table>
+                            </table>
+                          </div>
+
                         </div>
-
                       </div>
                     </div>
                   </div>

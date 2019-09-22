@@ -35,3 +35,14 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+.cellWidthForLabel {
+  width: 50%;
+}
+
+
+. cellWidthForInput {
+  width: 50%;
+}
+

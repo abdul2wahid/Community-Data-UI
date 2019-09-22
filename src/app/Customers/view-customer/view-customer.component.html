@@ -1,80 +1,98 @@
 
 <div class="container" >
   <div class="row">
-    <div class="col-1">
-    </div>
+    <div class="col-1"></div>
     <div class="col-11">
 
       <div class="row">
+        <div class="card" >
+          <div class="card-body">
+            <h5 class="card-title">Filter : </h5>
+            <td class="cellWidthForLabel">
+              <label>Occupation </label>
+            </td>
+            <td class="cellWidthForInput">
+              <select>
+                <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
+              </select>
+            </td>
+            <td class="cellWidthForLabel">
+              <label>Gender </label>
+            </td>
+            <td class="cellWidthForInput">
+              <select>
+                <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
+              </select>
+            </td>
 
-
-        <td class="cellWidthForLabel">
-          <label>Gender </label>
-        </td>
-        <td class="cellWidthForInput">
-          <select >
-            <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
-          </select>
-        </td>
-
+            <td class="cellWidthForLabel">
+              <label>Marital Status </label>
+            </td>
+            <td class="cellWidthForInput">
+              <select>
+                <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
+              </select>
+            </td>
+          </div>
+        </div>
       </div>
 
 
-      <div class="row">
+          <div class="row">
+
+            <div class="col-1"></div>
+            <div class="col-11">
+              <input type="button" class="btn btn-primary" value=" + Add" (click)="AddEvent()" style="float:right" />
+
+            </div>
+          </div>
+
+          <br />
+          <div class="row">
 
 
-        <input type="button" class="btn btn-primary" value=" + Add" (click)="AddEvent()" style="float:right" />
+
+            <p-table [value]="BasicCustomersList" [responsive]="true" [paginator]="true" [rows]="1" [totalRecords]="pageSize"
+                     [lazy]="true" (onLazyLoad)="LoadRows($event)"
+                     class="table table-responsive">
+              <ng-template pTemplate="header" class="thead-dark">
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Marriage</th>
+                  <th>Mobile</th>
+                  <th style="width:130px;">Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-BasicCustomers>
+                <tr>
+                  <td>{{BasicCustomers.customerID}}</td>
+                  <td>{{BasicCustomers.name}}</td>
+                  <td>{{BasicCustomers.age}}</td>
+                  <td>{{BasicCustomers.gender}}</td>
+                  <td>{{BasicCustomers.maritalStatus}}</td>
+                  <td>{{BasicCustomers.mobileNumber}}</td>
+                  <td>
+                    <p-button (onClick)="ViewEvent(BasicCustomers)" icon="pi pi-eye">
+                    </p-button>
+                    <p-button (onClick)="EditEvent(BasicCustomers)" icon="pi pi-user-edit" style="margin-left:2px;">
+                    </p-button>
+                    <p-button (onClick)="DeleteEvent(BasicCustomers)" icon="pi pi-trash" style="margin-left:2px;">
+                    </p-button>
+
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+          </div>
+        </div>
+
+        <div class="col-1"></div>
 
       </div>
-
-      <br />
-      <div class="row">
-
-
-
-        <p-table [value]="BasicCustomersList" [responsive]="true" [paginator]="true" [rows]="1" [totalRecords]="pageSize"
-                 [lazy]="true" (onLazyLoad)="LoadRows($event)"
-                 class="table table-responsive">
-          <ng-template pTemplate="header" class="thead-dark">
-            <tr>
-              <th>Customer ID</th>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Gender</th>
-              <th>Marriage</th>
-              <th>Mobile</th>
-              <th style="width:130px;">Actions</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-BasicCustomers>
-            <tr>
-              <td>{{BasicCustomers.customerID}}</td>
-              <td>{{BasicCustomers.name}}</td>
-              <td>{{BasicCustomers.age}}</td>
-              <td>{{BasicCustomers.gender}}</td>
-              <td>{{BasicCustomers.maritalStatus}}</td>
-              <td>{{BasicCustomers.mobileNumber}}</td>
-              <td>
-                <p-button (onClick)="ViewEvent(BasicCustomers)" icon="pi pi-eye">
-                </p-button>
-                <p-button (onClick)="EditEvent(BasicCustomers)" icon="pi pi-user-edit" style="margin-left:2px;">
-                </p-button>
-                <p-button (onClick)="DeleteEvent(BasicCustomers)" icon="pi pi-trash" style="margin-left:2px;">
-                </p-button>
-
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-       
-      </div>
-    </div>
-
-      <div class="col-1">
-
-      </div>
-
-    </div>
 </div>
 
 <div id="myModal" class="modal">
