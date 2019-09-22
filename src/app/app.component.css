@@ -6,3 +6,9 @@
 .myHeaderClass {
   background-color: #e3f2fd;
 }
+
+
+.SpaceBetweenBodyAndFooter
+{
+  margin-bottom:100px;
+}
