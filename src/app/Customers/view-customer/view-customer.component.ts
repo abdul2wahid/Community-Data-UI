@@ -7,6 +7,7 @@ import { GenderModel } from 'src/app/AppModel/GenderModel';
 import { MarriageModel } from 'src/app/AppModel/MarriageModel';
 import { OccupationModel } from 'src/app/AppModel/OccupationModel';
 import { AppService } from '../../app.service'
+import { isNullOrUndefined, isNumber } from 'util';
 @Component({
   selector: 'app-view-customer',
   templateUrl: './view-customer.component.html',
@@ -25,6 +26,10 @@ export class ViewCustomerComponent implements OnInit {
   marriageList: MarriageModel[];
   occupationList: OccupationModel[];
 
+  occupationFilter: string ="";
+  genderFilter: string = "";
+  marriageFilter: string = "";
+  searchString: string = "";
 
   constructor(private custService: CustomersService,
     private router: Router,
@@ -44,18 +49,25 @@ export class ViewCustomerComponent implements OnInit {
     this.appService.getGender().subscribe(
       data => {
         this.genderList = data;
+        var dummyModel = {} as GenderModel;
+        this.genderList.splice(0, 0, dummyModel);
       });
 
 
     this.appService.getMarriage().subscribe(
       data => {
         this.marriageList = data;
+        var dummyModel = {} as MarriageModel;
+        this.marriageList.splice(0, 0, dummyModel);
       });
 
 
     this.appService.getOccupation().subscribe(
       data => {
         this.occupationList = data;
+        var dummyModel = {} as OccupationModel;
+        this.occupationList.splice(0, 0, dummyModel);
+
       });
 
   }
@@ -72,11 +84,24 @@ export class ViewCustomerComponent implements OnInit {
   AddEvent(row: BasicCustomerModel) {
     this.router.navigate(['./add'], { relativeTo: this.route, });
   }
+
   custID: string;
   DeleteEvent(row: BasicCustomerModel) {
     this.custID = row.customerID;
     document.getElementById('myModal').style.display = "block";
     //document.getElementById('viewContainer').style.display = "none";
+  }
+
+  FilterEvent() {
+    this.searchString = "";
+    this.LoadRows(null);
+  }
+
+  SearchEvent() {
+    this.genderFilter = '';
+    this.occupationFilter = '';
+    this.marriageFilter = '';
+    this.LoadRows(null);
   }
 
   confirm() {
@@ -107,17 +132,17 @@ export class ViewCustomerComponent implements OnInit {
   LoadRows(event: any) {
    
     //https://github.com/pritspatel/PrimeDatatableLazyLoad/blob/master/frontend/src/app/customer-list/customer-list.component.ts
+    let pageNumer = "0";
 
-    //in a real application, make a remote request to load data using state metadata from event
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //event.sortField = Field name to sort with
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    if (!isNullOrUndefined(event)) {
+      pageNumer = event.first;
+    }
 
-    //imitate db connection over a network
+    let filteString: string;
+    filteString = this.genderFilter + ";" + this.marriageFilter + ";" + this.occupationFilter + ";" + this.searchString;
+    filteString = filteString.replace(/undefined/gi, "")
     setTimeout(() => {
-      this.custService.getCustomers("Customer", "1", event.first +1, "").subscribe(
+      this.custService.getCustomers("Customer", "1", pageNumer + 1, filteString).subscribe(
         data => {
           this.BasicCustomersList = data['items'];
           this.totalRecords = data['count'];

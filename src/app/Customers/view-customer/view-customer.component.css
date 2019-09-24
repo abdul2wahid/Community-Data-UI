@@ -38,11 +38,13 @@
 
 
 .cellWidthForLabel {
-  width: 50%;
+  
+padding-left:10px;
 }
 
 
-. cellWidthForInput {
-  width: 50%;
+.cellWidthForInput {
+
+  padding-left: 10px;
 }
 

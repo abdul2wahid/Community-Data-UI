@@ -12,7 +12,7 @@
               <label>Occupation </label>
             </td>
             <td class="cellWidthForInput">
-              <select>
+              <select [(ngModel)]="occupationFilter">
                 <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
               </select>
             </td>
@@ -20,7 +20,7 @@
               <label>Gender </label>
             </td>
             <td class="cellWidthForInput">
-              <select>
+              <select [(ngModel)]="genderFilter">
                 <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
               </select>
             </td>
@@ -29,10 +29,24 @@
               <label>Marital Status </label>
             </td>
             <td class="cellWidthForInput">
-              <select>
+              <select [(ngModel)]="marriageFilter">
                 <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
               </select>
             </td>
+            <td class="cellWidthForInput">
+              <input type="button" value="Filter" class="btn btn-primary" (click)="FilterEvent()" />
+            </td>
+            <br />
+            <td class="cellWidthForLabel">
+              <label>Search </label>
+            </td>
+            <td class="cellWidthForInput">
+              <input type="text" placeholder="User Name"  [(ngModel)]="searchString"/>
+            </td>
+            <td class="cellWidthForInput">
+              <input type="button" value="Search" class="btn btn-primary" (click)="SearchEvent()" />
+            </td>
+
           </div>
         </div>
       </div>
@@ -43,6 +57,7 @@
             <div class="col-1"></div>
             <div class="col-11">
               <input type="button" class="btn btn-primary" value=" + Add" (click)="AddEvent()" style="float:right" />
+              <input type="button" class="btn btn-primary" value=" Download User" (click)="AddEvent()" />
 
             </div>
           </div>
