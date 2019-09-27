@@ -8,6 +8,9 @@ import { MarriageModel } from 'src/app/AppModel/MarriageModel';
 import { OccupationModel } from 'src/app/AppModel/OccupationModel';
 import { AppService } from '../../app.service'
 import { isNullOrUndefined, isNumber } from 'util';
+import { saveAs } from '../../../..//node_modules/file-saver';
+
+
 @Component({
   selector: 'app-view-customer',
   templateUrl: './view-customer.component.html',
@@ -83,6 +86,18 @@ export class ViewCustomerComponent implements OnInit {
 
   AddEvent(row: BasicCustomerModel) {
     this.router.navigate(['./add'], { relativeTo: this.route, });
+  }
+
+  DownloadEvent() {
+    this.custService.downloadCustomer("Customer/DownloadCustomers/").subscribe(
+      data => this.downloadFile(data)),//console.log(data),
+      error => console.log('Error downloading the file.'),
+      () => console.info('OK');
+  }
+
+  downloadFile(data: any) {
+    const blob = new Blob([data], { type: 'text/csv' });
+    saveAs(blob, 'Users.xlsx');
   }
 
   custID: string;

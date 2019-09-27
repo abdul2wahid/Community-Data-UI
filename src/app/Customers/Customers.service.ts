@@ -6,7 +6,6 @@ import { BasicCustomerModel } from './Models/BasicCustomerModel';
 import { DetailCustomerModel } from './Models/DetailCustomerModel';
 import { AppSettings } from '../app.settings';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -140,10 +139,25 @@ export class CustomersService {
     return this._http.get(baseUrl);
   };
 
-  //Add Customer API call.
-  public addCustomer(baseUrl: string, customer: any) {
-    return this._http.post(baseUrl, customer, this.httpOptions);
-  }
+
+
+  public downloadCustomer(url: string) {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+   
+    return this._http.get(AppSettings.API_ENDPOINT + url,
+      {
+        responseType: 'blob',
+        headers: headers
+      })
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+   
+
 }
 
 
