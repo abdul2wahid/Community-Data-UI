@@ -222,13 +222,13 @@ export class EditCustomerComponent implements OnInit {
     this.custService.updateCustomer("Customer/Update", this.myArray.getRawValue()).subscribe(
       data => {
         if (data.toString()== "true") {
-          this.router.navigate(['./customers']);
+          this.router.navigate(['./users']);
         }
       })
   };
 
   CancelEvent() {
-    this.router.navigate(['./customers']);
+    this.router.navigate(['./users']);
   }
 
 
@@ -308,7 +308,6 @@ export class EditCustomerComponent implements OnInit {
 
   FindAndAddDependent() {
 
-    debugger;
     if (this.FindUserForm.invalid) {
       this.FindUserForm.markAllAsTouched();
       return;

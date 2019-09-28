@@ -11,6 +11,7 @@ import { StatesModel } from './AppModel/StatesModel';
 import { PinCodeModel } from './AppModel/PinCodeModel';
 import { ArabicEducationModel } from './AppModel/ArabicEducationModel';
 import { EducationModel } from './AppModel/EducationModel';
+import { RoleModel } from './AppModel/RoleModel';
 
 
 
@@ -155,6 +156,21 @@ export class AppService {
 
 
     return this._http.get<PinCodeModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetPincodes", options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  public getRoles() {
+
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.get<RoleModel[]>(AppSettings.API_ENDPOINT + "/Utility/GetRoles", options)
       .pipe(
         catchError(this.handleError)
       );

@@ -1,0 +1,174 @@
+<div class="container">
+  <div class="row">
+  
+    <div class="col-11" style="margin-left:20px;">
+
+      <!--<div class="row">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Filter : </h5>
+        <td class="cellWidthForLabel">
+          <label>Occupation </label>
+        </td>
+        <td class="cellWidthForInput">
+          <select [(ngModel)]="occupationFilter">
+            <option *ngFor="let c of occupationList" [ngValue]="c.occuptionName">{{c.occuptionName}}</option>
+          </select>
+        </td>
+        <td class="cellWidthForLabel">
+          <label>Gender </label>
+        </td>
+        <td class="cellWidthForInput">
+          <select [(ngModel)]="genderFilter">
+            <option *ngFor="let c of genderList" [ngValue]="c.gender1">{{c.gender1}}</option>
+          </select>
+        </td>
+
+        <td class="cellWidthForLabel">
+          <label>Marital Status </label>
+        </td>
+        <td class="cellWidthForInput">
+          <select [(ngModel)]="marriageFilter">
+            <option *ngFor="let c of marriageList" [ngValue]="c.maritalStatus1">{{c.maritalStatus1}}</option>
+          </select>
+        </td>
+        <td class="cellWidthForInput">
+          <input type="button" value="Filter" class="btn btn-primary" (click)="FilterEvent()" />
+        </td>
+        <br />
+        <td class="cellWidthForLabel">
+          <label>Search </label>
+        </td>
+        <td class="cellWidthForInput">
+          <input type="text" placeholder="User Name" [(ngModel)]="searchString" />
+        </td>
+        <td class="cellWidthForInput">
+          <input type="button" value="Search" class="btn btn-primary" (click)="SearchEvent()" />
+        </td>
+
+      </div>
+    </div>
+  </div>-->
+      <!--search and add window-->
+      <div class="row">
+        <div class="col-1"></div>
+
+        <div class="col-10">
+          <div class="card" id="Add&Search" style="display:none">
+
+
+
+            <div class="card-block">
+              <table [formGroup]="FindUserForm">
+                <tr>
+                  <td>
+                    <label>User Name *</label>
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="depUserName" formControlName="searchName" />
+
+                    <div *ngIf="(getFindFormControls.searchName.dirty || getFindFormControls.searchName.touched) && getFindFormControls.searchName.invalid && getFindFormControls.searchName.errors.required" class="text-danger">
+                      <div *ngIf="getFindFormControls.searchName.errors.required">
+                        User Name required.
+                      </div>
+                    </div>
+
+                  </td>
+                </tr>
+                <br />
+                <tr>
+                  <td>
+                    <label>DOB *</label>
+                  </td>
+                  <td>
+                    <p-calendar [(ngModel)]="depDOB" class="cellWidthForInput" showIcon="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" formControlName="searchDOB"></p-calendar>
+
+
+                    <div *ngIf="(getFindFormControls.searchDOB.dirty || getFindFormControls.searchDOB.touched) && getFindFormControls.searchDOB.invalid && getFindFormControls.searchDOB.errors.required" class="text-danger">
+                      <div *ngIf="getFindFormControls.searchDOB.errors.required">
+                        User DOB required.
+                      </div>
+                    </div>
+                  </td>
+
+                </tr>
+                <br />
+          
+                <tr>
+                  <td>
+
+
+                    <input type="button" class="btn btn-primary" value="Find" (click)="AddUserToAdmin()" />
+                  </td>
+                  <td>
+                    <label class="cellWidthForLabel" id="SearchResult"></label>
+                  </td>
+                  <td>
+                </tr>
+                <br />
+              </table>
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+        <div class="col-1"></div>
+
+      </div>
+
+      <br />
+      <div class="row">
+
+        <div class="col-1"></div>
+        <div class="col-11">
+          <input type="button" class="btn btn-primary" value=" + Add" (click)="displayAddWindow()"style="float:right;margin-top:10px;" />
+
+        </div>
+      </div>
+
+      <br />
+      <div class="row">
+
+
+
+        <p-table [value]="BasicUsersist" [responsive]="true" [paginator]="true" [rows]="1" [totalRecords]="pageSize"
+                 [lazy]="true" (onLazyLoad)="LoadRows($event)"
+                 class="table table-responsive">
+          <ng-template pTemplate="header" class="thead-dark">
+            <tr>
+             
+              <th>Name</th>
+              <th>DOB</th>
+              <th>Role</th>
+
+              <th style="width:130px;">Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-BasicUsers>
+            <tr>
+              <td>{{BasicUsers.userName}}</td>
+              <td>{{BasicUsers.dob | date: 'dd/MM/yyyy'}}</td>
+              <td>{{BasicUsers.role}}</td>
+              <td>
+                <!--<p-button (onClick)="ViewEvent(BasicCustomers)" icon="pi pi-eye">
+            </p-button>
+            <p-button (onClick)="EditEvent(BasicCustomers)" icon="pi pi-user-edit" style="margin-left:2px;">
+            </p-button>
+            <p-button (onClick)="DeleteEvent(BasicCustomers)" icon="pi pi-trash" style="margin-left:2px;">
+            </p-button>-->
+
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+    <div class="col-1"></div>
+
+  </div>
+</div>

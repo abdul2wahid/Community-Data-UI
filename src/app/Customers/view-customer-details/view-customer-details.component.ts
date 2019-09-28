@@ -29,7 +29,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
   }
 
   CancelEvent() {
-    this.router.navigate(['./customers']);
+    this.router.navigate(['./users']);
   }
 
 }

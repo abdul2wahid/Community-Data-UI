@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
         else {
        
           sessionStorage.setItem('Token', String(data));
-          this.router.navigate(['/customers']);
+          this.router.navigate(['/users']);
         }
       },
       errorCode => {
