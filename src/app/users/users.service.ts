@@ -54,6 +54,33 @@ export class UsersService {
       
   };
 
+  public deleteUser(url: string, id: string) {
+
+    let params = new HttpParams().set('id', id);
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    const options = { headers: headers };
+
+
+    return this._http.delete<string>(AppSettings.API_ENDPOINT + url + id, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  public saveUser(url: string, cust: any) {
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
+    const options = { headers: headers };
+
+    return this._http.put<BasicUserModel>(AppSettings.API_ENDPOINT + url, cust, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

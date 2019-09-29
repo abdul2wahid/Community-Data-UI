@@ -10,6 +10,8 @@ import { DatePipe } from '@angular/common';
 import { CustomersService } from 'src/app/Customers/Customers.service';
 import { RoleModel } from 'src/app/AppModel/RoleModel';
 import { AppService } from 'src/app/app.service';
+import { BasicCustomerModel } from 'src/app/Customers/Models/BasicCustomerModel';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-users',
@@ -18,7 +20,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class ViewUsersComponent implements OnInit {
 
-  BasicUsersist: BasicUserModel[]
+  BasicUsersist: BasicUserModel[];
 
   totalRecords: number = 10;
   pageIndex: number = 1;
@@ -36,12 +38,15 @@ export class ViewUsersComponent implements OnInit {
   depUserName: string;
   depDOB: string;
   userId: string;
+  isDisabled: boolean[] = [];
 
   constructor(private usersService: UsersService,
     private datePipe: DatePipe,
     private custService: CustomersService,
     private appService: AppService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,) { }
 
   ngOnInit() {
 
@@ -49,14 +54,16 @@ export class ViewUsersComponent implements OnInit {
       {
         searchName: ['', Validators.required],
         searchDOB: ['', Validators.required],
-
       });
 
 
     this.appService.getRoles().subscribe(
       data => {
-        this.roleList = data;
+         this.roleList = data;
       });
+
+  
+  
   }
   // convenience getter for easy access to form fields
   get getFindFormControls() { return this.FindUserForm.controls; }
@@ -81,6 +88,10 @@ export class ViewUsersComponent implements OnInit {
           this.pageIndex = data['pageIndex'];
           this.pageSize = data['pageSize'];
           this.pageSize = this.totalRecords / this.pageSize;
+
+          for (let i = 0; i < this.BasicUsersist.length; i++) {
+            this.isDisabled[i] = true;
+          }
         })
     }, 200);
   }
@@ -116,16 +127,84 @@ export class ViewUsersComponent implements OnInit {
 
       this.usersService.addUserToManagement("User",obj ).subscribe(
         data => {
-          if (data.toString() == "true") {
-            document.getElementById('SearchResult').innerText = 'User already listed, duplicate user';
+          if (data.toString().toLowerCase() == "success") {
+            document.getElementById('Add&Search').style.display = 'none';
+            this.reload();
           }
           else {
             document.getElementById('SearchResult').innerText = data.toString();
+
           }
         });
 
       }
     }
 
+  custID: string;
+  DeleteEvent(row: BasicUserModel) {
+    this.custID = row.userId;
+    document.getElementById('myModal').style.display = "block";
+    //document.getElementById('viewContainer').style.display = "none";
+  }
+
+  reload() {
+    setTimeout(() => {
+      this.usersService.getUsers("User", "1", "1", ";").subscribe(
+        data => {
+          this.BasicUsersist = data['items'];
+          this.totalRecords = data['count'];
+          this.pageIndex = data['pageIndex'];
+          this.pageSize = data['pageSize'];
+          this.pageSize = this.totalRecords / this.pageSize;
+
+          for (let i = 0; i < this.BasicUsersist.length; i++) {
+            this.isDisabled[i] = true;
+          }
+        })
+    }, 10);
+  }
+
+  EditEvent(rowIndex: number) {
+    this.isDisabled[rowIndex] = false;
+  }
+
+  SaveEvent(rowIndex: number, row: BasicUserModel) {
+    row.dob = this.datePipe.transform(row.dob, "dd/MM/yyy");
+    this.usersService.saveUser("User/UpdateRole", row).subscribe(
+      data => {
+        if (data["roleId"] == row.roleId) {
+          this.isDisabled[rowIndex] = true;
+        }
+       
+      });
+    
+  }
+
+  confirm() {
+    if (this.custID != "") {
+      this.usersService.deleteUser("User/", this.custID).subscribe(
+        data => {
+          if (data) {
+            document.getElementById('myText').innerText = "Deleted succesfully";
+            document.getElementById('myButton').style.display = "none";
+            this.close();
+            this.reload();
+          }
+          else {
+            document.getElementById('myText').innerText = "Failed to Delete";
+            document.getElementById('myButton').style.display = "none";
+          }
+        })
+    }
+    else {
+      document.getElementById('myText').innerText = "Failed to Delete";
+      document.getElementById('myButton').style.display = "none";
+    }
+  }
+
+  close() {
+    this.custID = "";
+    document.getElementById('myModal').style.display = "none";
+  }
   }
 

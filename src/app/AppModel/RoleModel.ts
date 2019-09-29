@@ -1,4 +1,4 @@
 export interface RoleModel {
   roleId;
-  role;
+  roleName;
 }
