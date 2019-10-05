@@ -82,6 +82,17 @@ export class UsersService {
       );
   };
 
+  public ChangePassword(url: string, password: any) {
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const options = { headers: headers };
+
+    return this._http.put<boolean>(AppSettings.API_ENDPOINT + url, password, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

@@ -127,7 +127,7 @@
               <th>DOB</th>
               <th>Role</th>
 
-              <th style="width:130px;">Actions</th>
+              <th style="width:180px;">Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-BasicUsers let-rowIndex="rowIndex">
@@ -135,9 +135,9 @@
               <td hidden>{{BasicUsers.userId}}</td>
               <td>{{BasicUsers.userName}}</td>
               <td>{{BasicUsers.dob | date: 'dd/MM/yyyy'}} </td>
-              <td  >
-                <select  [(ngModel)]="BasicUsers.role"  [disabled]="isDisabled[rowIndex]">
-                  <option *ngFor="let c of roleList" [ngValue]="c.roleName"  [selected]="BasicUsers.role==c.roleName" >
+              <td>
+                <select [(ngModel)]="BasicUsers.role" [disabled]="isDisabled[rowIndex]">
+                  <option *ngFor="let c of roleList" [ngValue]="c.roleName" [selected]="BasicUsers.role==c.roleName">
                     {{c.roleName }}
                   </option>
                 </select>
@@ -151,6 +151,10 @@
 
                 <p-button (onClick)="SaveEvent(rowIndex,BasicUsers)" icon="pi pi-save" style="margin-left:2px;" [disabled]="isDisabled[rowIndex]">
                 </p-button>
+
+                <p-button (onClick)="DisplayPasswordModel(BasicUsers)" icon="pi pi-key" style="margin-left:2px;" >
+                </p-button>
+
               </td>
             </tr>
           </ng-template>
@@ -162,11 +166,56 @@
 </div>
 <div id="myModal" class="modal">
   <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close" (click)="close()">&times;</span>
-    <p id="myText">Confirm Delete user?</p>
-    <button type="button" class="btn btn-primary" (click)="confirm()" style="margin-right:10px;" id="myButton">Delete</button>
-    <button type="button" class="btn btn-default" (click)="close()">Close</button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Remove User From Administrator Role</h5>
+
+      </div>
+
+
+      <div class="modal-body">
+        <span class="close" (click)="close()">&times;</span>
+        <p id="myText">Confirm Delete user?</p>
+      </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" (click)="confirm()" style="margin-right:10px;" id="myButton">Delete</button>
+          <button type="button" class="btn btn-default" (click)="close()">Close</button>
+        </div>
+      </div>
   </div>
 </div>
 
+    <div id="myModalChangePassword" class="modal">
+      <!-- Modal content -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Change/Reset Password</h5>
+
+          </div>
+
+
+          <div class="modal-body">
+
+
+            <span class="close" (click)="close()">&times;</span>
+            <p>Old Password:</p>
+            <input type="password" [(ngModel)]="oldPassword" />
+            <p>New Password:</p>
+            <input type="password" [(ngModel)]="newPassword" />
+            <p>Confirm  Password:</p>
+            <input type="password" [(ngModel)]="confirmPassword" />
+            <br />
+            <br />
+            <input type="text" [(ngModel)]="updateResults" disabled [style.visibility]="isResultVisible ? 'visible' : 'hidden'" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="ChangePassword(true)" style="margin-right:10px;" id="myButton">Reset Password-Default</button>
+            <button type="button" class="btn btn-primary" (click)="ChangePassword(false)" style="margin-right:10px;" id="myButton">Change Passwrd</button>
+            <button type="button" class="btn btn-default" (click)="close()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -39,6 +39,11 @@ export class ViewUsersComponent implements OnInit {
   depDOB: string;
   userId: string;
   isDisabled: boolean[] = [];
+  oldPassword: string="";
+  confirmPassword: string="";
+  newPassword: string="";
+  updateResults: string = "";
+  isResultVisible: boolean = false;
 
   constructor(private usersService: UsersService,
     private datePipe: DatePipe,
@@ -202,9 +207,54 @@ export class ViewUsersComponent implements OnInit {
     }
   }
 
+  custId: number = -1;
+  DisplayPasswordModel(row: BasicUserModel) {
+    this.custId = row.userId;
+
+    this.isResultVisible = false;
+    this.updateResults = "";
+
+    document.getElementById('myModalChangePassword').style.display = "block";
+  }
+
+  ChangePassword(isReset: boolean) {
+    if (this.oldPassword != "" && this.confirmPassword != ""
+      && this.newPassword != "" && this.newPassword.length >= 5) {
+
+      let obj = {
+        UserId: this.custId ,
+        newPassword: this.newPassword,
+        confirmPassword: this.confirmPassword,
+        oldPassword: this.oldPassword,
+
+      };
+
+      this.usersService.ChangePassword("User/UpdatePassword",obj).subscribe(
+        data => {
+          if (data.toString().toLowerCase() == "true") {
+            this.isResultVisible = true;
+            this.updateResults = "Updated Successfully";
+          }
+          else {
+            this.isResultVisible = true;
+            this.updateResults = "Update failed";
+
+          }
+        }
+      );
+    }
+    else {
+      this.isResultVisible = true;
+      this.updateResults = "Update failed";
+
+    }
+  }
+
   close() {
     this.custID = "";
     document.getElementById('myModal').style.display = "none";
+
+    document.getElementById('myModalChangePassword').style.display = "none";
   }
   }
 
