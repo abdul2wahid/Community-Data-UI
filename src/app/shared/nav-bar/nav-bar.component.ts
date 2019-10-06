@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { LoginService } from 'src/app/Login/login.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,18 +11,35 @@ import { Location } from '@angular/common';
 })
 export class NavBarComponent implements OnInit {
 
-  display: boolean;
+ 
+  isLoggedIn: boolean;
+
   constructor(private location: Location,
     private router : Router) {
-    if (location.path() != "" && location.path() != "/login") {
-      this.display = true;
-    }
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    
+    });
   }
  
   
 
    
   ngOnInit() {
+    var token = sessionStorage.getItem('Token');
+    if (token != null) {
+      this.isLoggedIn = true;
+    }
+    else {
+      this.isLoggedIn = false;
+    }
+  }
+
+  logout() {
+    sessionStorage.removeItem('Token');
+    this.router.navigate(['']);
   }
 
 }

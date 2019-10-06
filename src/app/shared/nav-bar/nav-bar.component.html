@@ -1,14 +1,20 @@
 <div>
   <nav class="nav nav-pills flex-column">
-    <a href="/" class="nav-item nav-link ">
+    <a routerLink="/login" class="nav-item nav-link" [style.visibility]="isLoggedIn ? 'hidden' : 'visible'">
+      <i class="pi pi-sign-in"></i> Login
+    </a>
+    <a href="/" class="nav-item nav-link" [style.visibility]="isLoggedIn ? 'visible' : 'hidden'">
       <i class="pi pi-home"></i> Home
     </a>
-      <a  routerLink="/users" class="nav-item nav-link" >
-        <i class="pi pi-users"></i> Users
-      </a>
-      <a routerLink="/admin" class="nav-item nav-link">
-        <i class="pi pi-key"></i> Admin
-      </a>
+    <a routerLink="/users" class="nav-item nav-link" [style.visibility]="isLoggedIn ? 'visible' : 'hidden'">
+      <i class="pi pi-users"></i> Users
+    </a>
+    <a routerLink="/admin" class="nav-item nav-link" [style.visibility]="isLoggedIn ? 'visible' : 'hidden'">
+      <i class="pi pi-key"></i> Admin
+    </a>
+    <a (click)="logout()" href="/" class="nav-item nav-link" [style.visibility]="isLoggedIn ? 'visible' : 'hidden'">
+      <i class="pi pi-sign-out"></i> Logout
+    </a>
 
-</nav>
+  </nav>
 </div>

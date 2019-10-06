@@ -208,9 +208,10 @@ export class ViewUsersComponent implements OnInit {
   }
 
   custId: number = -1;
+  custName: string = "";
   DisplayPasswordModel(row: BasicUserModel) {
     this.custId = row.userId;
-
+    this.custName = row.userName;
     this.isResultVisible = false;
     this.updateResults = "";
 
@@ -218,18 +219,25 @@ export class ViewUsersComponent implements OnInit {
   }
 
   ChangePassword(isReset: boolean) {
-    if (this.oldPassword != "" && this.confirmPassword != ""
-      && this.newPassword != "" && this.newPassword.length >= 5) {
-
+    let validation: boolean = false;
+    if (isReset) {
+      validation = true;
+    }
+    else if (this.oldPassword != "" && this.confirmPassword != ""
+      && this.newPassword != "" && this.newPassword.length >= 5
+      && this.newPassword == this.confirmPassword) {
+      validation = true;
+     
+    }
+    if (validation) {
       let obj = {
-        UserId: this.custId ,
+        UserId: this.custId,
         newPassword: this.newPassword,
         confirmPassword: this.confirmPassword,
         oldPassword: this.oldPassword,
 
       };
-
-      this.usersService.ChangePassword("User/UpdatePassword",obj).subscribe(
+      this.usersService.ChangePassword("User/UpdatePassword", obj).subscribe(
         data => {
           if (data.toString().toLowerCase() == "true") {
             this.isResultVisible = true;
@@ -252,6 +260,7 @@ export class ViewUsersComponent implements OnInit {
 
   close() {
     this.custID = "";
+    this.custName = '';
     document.getElementById('myModal').style.display = "none";
 
     document.getElementById('myModalChangePassword').style.display = "none";

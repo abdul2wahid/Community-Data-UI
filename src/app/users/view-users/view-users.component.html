@@ -192,14 +192,15 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Change/Reset Password</h5>
-
+            <h5 class="modal-title">Change/Reset Password </h5>
+           
           </div>
 
 
           <div class="modal-body">
 
-
+            <p>{{custName}}</p>
+          
             <span class="close" (click)="close()">&times;</span>
             <p>Old Password:</p>
             <input type="password" [(ngModel)]="oldPassword" />
