@@ -176,6 +176,14 @@ export class AppService {
       );
   };
 
+  public  UpdateRoleBasedHiding() {
+    let role = sessionStorage.getItem('R');
+    if (role == "MEMBER")
+      return true;
+    else
+      return false;
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

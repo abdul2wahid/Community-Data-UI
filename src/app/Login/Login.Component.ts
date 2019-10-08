@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AppService } from '../app.service';
 import { SharedService } from '../shared/Shared.Service';
+import { isNullOrUndefined } from 'util';
 
 //import { AlertService, AuthenticationService } from '../_services';
 
@@ -72,15 +73,15 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
       data => {
-      
-        if (!data) {
+        var jsonData = JSON.parse(data.toString());
+        if (isNullOrUndefined(jsonData.token))  {
           this.loading = false;
           this.unauthorized = true;
-         
         }
         else {
        
-          sessionStorage.setItem('Token', String(data));
+          sessionStorage.setItem('Token', jsonData.token);
+          sessionStorage.setItem('R', jsonData.Role);
           this.router.navigate(['/users']);
         }
       },

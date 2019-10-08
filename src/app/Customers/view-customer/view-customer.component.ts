@@ -34,6 +34,8 @@ export class ViewCustomerComponent implements OnInit {
   marriageFilter: string = "";
   searchString: string = "";
 
+  roleBasedHiding: boolean = false;
+
   constructor(private custService: CustomersService,
     private router: Router,
     private route: ActivatedRoute,
@@ -73,7 +75,11 @@ export class ViewCustomerComponent implements OnInit {
 
       });
 
+
+    this.roleBasedHiding =this.appService.UpdateRoleBasedHiding();
   }
+
+
 
   EditEvent(row: BasicCustomerModel) {
     this.router.navigate(['./edit', row.customerID], { relativeTo: this.route, });

@@ -50,6 +50,8 @@ export class EditCustomerComponent implements OnInit {
   myArray: FormArray;
   EditUserForm: FormGroup;
 
+  roleBasedHiding: boolean = false;
+
   constructor(private custService: CustomersService,
     private appService: AppService,
     private router: Router,
@@ -144,11 +146,11 @@ export class EditCustomerComponent implements OnInit {
 
     this.relChoice = "Child";
 
-
-
-
-
+   this.roleBasedHiding = this.appService.UpdateRoleBasedHiding();
   }
+
+
+
 
   createItem(DetailCustomerModel: DetailCustomerModel): FormGroup {
   

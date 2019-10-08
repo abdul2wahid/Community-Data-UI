@@ -92,9 +92,9 @@
                   <td>
                     <p-button (onClick)="ViewEvent(BasicCustomers)" icon="pi pi-eye">
                     </p-button>
-                    <p-button (onClick)="EditEvent(BasicCustomers)" icon="pi pi-user-edit" style="margin-left:2px;">
+                    <p-button [hidden]="roleBasedHiding" (onClick)="EditEvent(BasicCustomers)" icon="pi pi-user-edit" style="margin-left:2px;">
                     </p-button>
-                    <p-button (onClick)="DeleteEvent(BasicCustomers)" icon="pi pi-trash" style="margin-left:2px;">
+                    <p-button  [hidden]="roleBasedHiding" (onClick)="DeleteEvent(BasicCustomers)" icon="pi pi-trash" style="margin-left:2px;">
                     </p-button>
 
                   </td>

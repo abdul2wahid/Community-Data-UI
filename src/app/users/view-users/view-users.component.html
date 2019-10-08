@@ -143,13 +143,13 @@
                 </select>
               </td>
               <td>
-                <p-button (onClick)="DeleteEvent(BasicUsers)" icon="pi pi-trash">
+                <p-button  [hidden]="roleBasedHiding" (onClick)="DeleteEvent(BasicUsers)" icon="pi pi-trash">
                 </p-button>
 
-                <p-button (onClick)="EditEvent(rowIndex)" icon="pi pi-user-edit" style="margin-left:2px;">
+                <p-button  [hidden]="roleBasedHiding"  (onClick)="EditEvent(rowIndex)" icon="pi pi-user-edit" style="margin-left:2px;">
                 </p-button>
 
-                <p-button (onClick)="SaveEvent(rowIndex,BasicUsers)" icon="pi pi-save" style="margin-left:2px;" [disabled]="isDisabled[rowIndex]">
+                <p-button  [hidden]="roleBasedHiding" (onClick)="SaveEvent(rowIndex,BasicUsers)" icon="pi pi-save" style="margin-left:2px;" [disabled]="isDisabled[rowIndex]">
                 </p-button>
 
                 <p-button (onClick)="DisplayPasswordModel(BasicUsers)" icon="pi pi-key" style="margin-left:2px;" >

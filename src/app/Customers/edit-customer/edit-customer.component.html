@@ -8,7 +8,7 @@
     </div>
     <div class="col-3">
       <input type="button" class="btn btn-primary" value="Cancel" (click)="CancelEvent()" />
-      <input type="button" class="btn btn-primary" value="Save" (click)="updateEvent()" style="margin-left:5px;" />
+      <input  [hidden]="roleBasedHiding" type="button" class="btn btn-primary" value="Save" (click)="updateEvent()" style="margin-left:5px;" />
     </div>
   </div>
   <br />

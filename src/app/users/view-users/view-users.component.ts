@@ -52,6 +52,7 @@ export class ViewUsersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,) { }
+  roleBasedHiding: boolean = false;
 
   ngOnInit() {
 
@@ -67,8 +68,8 @@ export class ViewUsersComponent implements OnInit {
          this.roleList = data;
       });
 
-  
-  
+    
+    this.roleBasedHiding = this.appService.UpdateRoleBasedHiding();
   }
   // convenience getter for easy access to form fields
   get getFindFormControls() { return this.FindUserForm.controls; }
