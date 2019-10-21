@@ -72,7 +72,7 @@
                      class="table table-responsive">
               <ng-template pTemplate="header" class="thead-dark">
                 <tr>
-                  <th>Customer ID</th>
+                  <th hidden>Customer ID</th>
                   <th>Name</th>
                   <th>Age</th>
                   <th>Gender</th>
@@ -83,7 +83,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-BasicCustomers>
                 <tr>
-                  <td>{{BasicCustomers.customerID}}</td>
+                  <td hidden>{{BasicCustomers.customerID}}</td>
                   <td>{{BasicCustomers.name}}</td>
                   <td>{{BasicCustomers.age}}</td>
                   <td>{{BasicCustomers.gender}}</td>
